@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="趣购 FunBuy——年轻、潮流、有趣好物的电商平台。发现生活的小确幸，数码潮玩、创意家居、零食盲盒、穿搭服饰一站购齐。">
+    <title>趣购 FunBuy · 发现生活的小确幸</title>
+    <style>
+        /* ==================== 全局基础样式 ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 品牌主色：活力橙 / 潮流蓝 */
+            --brand: #FF6B35;
+            --brand-deep: #F04E15;
+            --brand-soft: #FFF1E8;
+            --blue: #2F6BFF;
+            --blue-soft: #EAF0FF;
+            --amber: #FFA52F;
+            --amber-soft: #FFF4E3;
+            --violet: #7C5CFF;
+            --violet-soft: #F0EDFF;
+            /* 中性色 */
+            --ink: #23293B;
+            --gray: #7B8499;
+            --line: #ECEEF3;
+            --bg-soft: #F6F7FB;
+            /* 价格强调色（红色高亮） */
+            --price: #FF3B30;
+            /* 圆角与阴影 */
+            --radius: 12px;
+            --radius-lg: 16px;
+            --shadow-card: 0 4px 14px rgba(35, 41, 59, .06);
+            --shadow-hover: 0 18px 36px rgba(35, 41, 59, .13);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--ink);
+            background: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            font-family: inherit;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* 键盘焦点可见性（无障碍） */
+        :focus-visible {
+            outline: 3px solid rgba(47, 107, 255, .55);
+            outline-offset: 2px;
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ==================== 1. 顶部导航栏 ==================== */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, .94);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            height: 72px;
+        }
+
+        /* 左侧 Logo（png 图片，本地相对路径 images/logo.png） */
+        .logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 44px;
+            width: auto;
+        }
+
+        /* 中间搜索框 */
+        .search {
+            flex: 1;
+            max-width: 560px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search input {
+            width: 100%;
+            height: 46px;
+            padding: 0 96px 0 20px;
+            border: 2px solid var(--line);
+            border-radius: 999px;
+            background: var(--bg-soft);
+            font-size: 14px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color .25s, box-shadow .25s, background .25s;
+        }
+
+        .search input::placeholder {
+            color: #AAB2C3;
+        }
+
+        .search input:focus {
+            border-color: var(--brand);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(255, 107, 53, .12);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            width: 84px;
+            border-radius: 999px;
+            background: var(--brand);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background .25s, transform .25s;
+        }
+
+        .search-btn:hover {
+            background: var(--brand-deep);
+        }
+
+        .search-btn:active {
+            transform: scale(.97);
+        }
+
+        /* 右侧操作区：购物车 / 登录 */
+        .actions {
+            flex-shrink: 0;
+            display: flex;
+            gap: 6px;
+        }
+
+        .action-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 16px;
+            border-radius: var(--radius);
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 600;
+            transition: background .25s, color .25s;
+        }
+
+        .action-btn:hover {
+            background: var(--brand-soft);
+            color: var(--brand);
+        }
+
+        .action-btn .badge {
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: var(--price);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 18px;
+            text-align: center;
+        }
+
+        /* ==================== 2. Hero 促销横幅区 ==================== */
+                .hero {
+            position: relative;
+            overflow: hidden;
+            /* 促销横幅背景图（本地相对路径 images/banner.jpg） */
+            background: url("images/banner.jpg") center / cover no-repeat;
+        }
+
+        .hero-inner {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 72px 24px 78px;
+        }
+
+        /* 文案区：落在横幅左侧留白处，限制宽度保证可读性 */
+        .hero-copy {
+            max-width: 560px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: #FFFFFF;
+            color: var(--brand);
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, .14);
+            margin-bottom: 20px;
+        }
+
+        .hero-badge svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 4.6vw, 52px);
+            line-height: 1.18;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 .hl {
+            color: var(--brand);
+            position: relative;
+        }
+
+        .hero-sub {
+            margin-top: 18px;
+            max-width: 480px;
+            color: var(--gray);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        /* 通用按钮 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 50px;
+            padding: 0 32px;
+            border-radius: 999px;
+            font-size: 16px;
+            font-weight: 700;
+            transition: transform .25s, box-shadow .25s, background .25s, border-color .25s, color .25s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF8A50, var(--brand));
+            color: #FFFFFF;
+            box-shadow: 0 12px 26px rgba(255, 107, 53, .38);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(255, 107, 53, .46);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-ghost {
+            background: #FFFFFF;
+            color: var(--brand);
+            border: 2px solid #FFD9C8;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--brand);
+            background: var(--brand-soft);
+            transform: translateY(-2px);
+        }
+
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 24px;
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .hero-trust svg {
+            width: 15px;
+            height: 15px;
+            color: var(--amber);
+        }
+
+        /* Hero 右侧漂浮商品卡 */
+                /* （Hero 右侧漂浮商品卡样式已移除：横幅背景图承载视觉） */
+
+        /* ==================== 3. 服务保障条 ==================== */
+        .trust {
+            padding: 26px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+        }
+
+        .trust-icon {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand);
+            background: var(--brand-soft);
+        }
+
+        .trust-item:nth-child(2) .trust-icon { color: var(--blue); background: var(--blue-soft); }
+        .trust-item:nth-child(3) .trust-icon { color: var(--violet); background: var(--violet-soft); }
+        .trust-item:nth-child(4) .trust-icon { color: var(--amber); background: var(--amber-soft); }
+
+        .trust-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .trust-item .t-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .trust-item .t-desc {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* ==================== 4. 热门分类区 ==================== */
+        .section {
+            padding: 48px 0 10px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .sec-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .sec-title::before {
+            content: "";
+            width: 6px;
+            height: 26px;
+            border-radius: 3px;
+            background: linear-gradient(180deg, var(--brand), #FFB38A);
+        }
+
+        .sec-more {
+            color: var(--gray);
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color .25s;
+        }
+
+        .sec-more:hover {
+            color: var(--brand);
+        }
+
+        .sec-more svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .cat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 26px 24px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: #FFFFFF;
+            transition: transform .3s, box-shadow .3s, border-color .3s;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: transparent;
+        }
+
+                .cat-icon {
+            width: 58px;
+            height: 58px;
+            margin-bottom: 4px;
+        }
+
+        .cat-icon img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .cat-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .cat-desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .cat-more {
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brand);
+        }
+
+        /* ==================== 5. 爆款商品流 ==================== */
+        .hot {
+            padding: 48px 0 20px;
+        }
+
+        .grid-products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #FFFFFF;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: transform .3s, box-shadow .3s, border-color .3s;
+        }
+
+        /* 商品卡片 hover：轻微上浮 + 阴影 */
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: transparent;
+        }
+
+        .thumb {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform .35s ease;
+        }
+
+        .product-card:hover .thumb img {
+            transform: scale(1.06);
+        }
+
+        .tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 3px 11px;
+            border-radius: 999px;
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .tag--brand { background: var(--brand); }
+        .tag--blue { background: var(--blue); }
+        .tag--amber { background: var(--amber); }
+        .tag--violet { background: var(--violet); }
+
+        .info {
+            padding: 0 16px 18px;
+        }
+
+        .p-name {
+            font-size: 14.5px;
+            font-weight: 600;
+            line-height: 1.5;
+            min-height: 43px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .p-desc {
+            margin-top: 3px;
+            font-size: 12px;
+            color: var(--gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        /* 价格：红色高亮 */
+        .p-price {
+            color: var(--price);
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .p-price .unit {
+            font-size: 13px;
+            font-weight: 700;
+            margin-right: 1px;
+        }
+
+        .p-origin {
+            color: #B4BBCB;
+            font-size: 12px;
+            text-decoration: line-through;
+        }
+
+        /* 加入购物车按钮：悬停颜色加深过渡 */
+        .add-btn {
+            margin-top: 14px;
+            width: 100%;
+            height: 40px;
+            border-radius: var(--radius);
+            background: var(--brand-soft);
+            color: var(--brand);
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background .25s, color .25s, box-shadow .25s, transform .25s;
+        }
+
+        .add-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .add-btn:hover {
+            background: var(--brand);
+            color: #FFFFFF;
+            box-shadow: 0 10px 20px rgba(255, 107, 53, .35);
+            transform: translateY(-1px);
+        }
+
+        .add-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* ==================== 6. 页脚 ==================== */
+        .footer {
+            margin-top: 60px;
+            background: #20273B;
+            color: #C6CBD9;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 52px 24px 32px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1.2fr;
+            gap: 48px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .footer-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            background: var(--brand);
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-brand .f-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+        }
+
+        .footer-brand .f-en {
+            font-size: 13px;
+            color: var(--brand);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .footer-about {
+            font-size: 13px;
+            line-height: 1.9;
+            max-width: 380px;
+        }
+
+        .footer h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            transition: color .25s;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand);
+        }
+
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .footer-contact svg {
+            flex-shrink: 0;
+            width: 17px;
+            height: 17px;
+            color: var(--brand);
+            margin-top: 3px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .footer-bottom .container {
+            padding-top: 20px;
+            padding-bottom: 22px;
+            text-align: center;
+            font-size: 12.5px;
+            color: #8A93A6;
+        }
+
+        /* （响应式媒体查询已移除：本页面仅针对 PC 桌面端设计） */
+        /* 平板：商品流 3 列 */
+            </style>
+</head>
+<body>
+
+    <!-- ==================== 1. 顶部导航栏 ==================== -->
+    <header class="topbar" aria-label="顶部导航">
+        <div class="container topbar-inner">
+            <!-- 左侧：趣购 Logo（png 图片） -->
+            <a class="logo" href="#" aria-label="趣购 FunBuy 首页">
+                <img src="images/logo.png" alt="趣购 FunBuy Logo">
+            </a>
+
+            <!-- 中间：搜索框 -->
+            <div class="search" role="search">
+                <input type="search" placeholder="搜索你感兴趣的好物，如：耳机、盲盒、卫衣…" aria-label="搜索商品">
+                <button class="search-btn" type="button" aria-label="搜索">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                    搜索
+                </button>
+            </div>
+
+            <!-- 右侧：购物车 / 登录 -->
+            <div class="actions">
+                <a class="action-btn" href="cart.html" aria-label="购物车">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                    <span>购物车</span>
+                    <span class="badge">3</span>
+                </a>
+                <a class="action-btn" href="#" aria-label="登录">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>
+                    <span>登录</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 2. Hero 促销横幅区 ==================== -->
+    <section class="hero" aria-label="促销横幅">
+        <div class="hero-inner">
+            <!-- 左侧：文案与行动按钮 -->
+            <div>
+                <span class="hero-badge">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
+                    趣购新人礼 · 全场满 49 包邮
+                </span>
+                <h1>发现生活的<span class="hl">小确幸</span></h1>
+                <p class="hero-sub">汇集全网有趣好物——数码潮玩、创意家居、零食盲盒、潮流穿搭。每天都有新惊喜，等你来拆开。</p>
+                <div class="hero-cta">
+                    <a class="btn btn-primary" href="#hot">立即抢购</a>
+                    <a class="btn btn-ghost" href="#categories">逛热门分类</a>
+                </div>
+                <p class="hero-trust">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+                    4.9 用户好评 · 100,000+ 年轻人的选择
+                </p>
+            </div>
+
+            <!-- （Hero 视觉由横幅背景图承载，右侧漂浮卡片已移除） -->
+        </div>
+    </section>
+
+    <!-- ==================== 3. 服务保障条 ==================== -->
+    <section class="trust" aria-label="服务保障">
+        <div class="container trust-grid">
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 2.5v6c0 4.5-3 7.8-7 9.5-4-1.7-7-5-7-9.5v-6z"/><path d="M9 12l2 2 4-4.5"/></svg>
+                </span>
+                <div>
+                    <p class="t-title">正品保障</p>
+                    <p class="t-desc">官方直采 · 假一赔十</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="12" height="10" rx="1.5"/><path d="M14 9h4l3 3v4h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>
+                </span>
+                <div>
+                    <p class="t-title">极速发货</p>
+                    <p class="t-desc">下单后 24 小时内发出</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.2"/><path d="M20 5v6h-6"/></svg>
+                </span>
+                <div>
+                    <p class="t-title">7 天无理由</p>
+                    <p class="t-desc">不喜欢随时退换</p>
+                </div>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4"/><path d="M12 11v10"/></svg>
+                </span>
+                <div>
+                    <p class="t-title">全场包邮</p>
+                    <p class="t-desc">满 49 元包邮到家</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. 热门分类区 ==================== -->
+    <section class="section" id="categories" aria-labelledby="cat-title">
+        <div class="container">
+            <div class="section-head">
+                <h2 class="sec-title" id="cat-title">热门分类</h2>
+                <a class="sec-more" href="#">全部分类
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+
+            <div class="cat-grid">
+                <!-- 分类卡 1：数码潮玩 -->
+                <a class="cat-card" href="#hot">
+                    <span class="cat-icon cat-icon--orange"><img src="images/cat-1.png" alt="数码潮玩"></span>
+                    <span class="cat-name">数码潮玩</span>
+                    <span class="cat-desc">耳机音箱 · 酷玩装备</span>
+                    <span class="cat-more">去看看
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <!-- 分类卡 2：创意家居 -->
+                <a class="cat-card" href="#hot">
+                    <span class="cat-icon cat-icon--blue"><img src="images/cat-2.png" alt="创意家居"></span>
+                    <span class="cat-name">创意家居</span>
+                    <span class="cat-desc">小物点缀 · 生活有趣</span>
+                    <span class="cat-more">去看看
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <!-- 分类卡 3：零食盲盒 -->
+                <a class="cat-card" href="#hot">
+                    <span class="cat-icon cat-icon--amber"><img src="images/cat-3.png" alt="零食盲盒"></span>
+                    <span class="cat-name">零食盲盒</span>
+                    <span class="cat-desc">拆开就有惊喜</span>
+                    <span class="cat-more">去看看
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <!-- 分类卡 4：穿搭服饰 -->
+                <a class="cat-card" href="#hot">
+                    <span class="cat-icon cat-icon--violet"><img src="images/cat-4.png" alt="穿搭服饰"></span>
+                    <span class="cat-name">穿搭服饰</span>
+                    <span class="cat-desc">潮人衣橱 · 每天新鲜</span>
+                    <span class="cat-more">去看看
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. 爆款商品流 ==================== -->
+    <section class="hot" id="hot" aria-labelledby="hot-title">
+        <div class="container">
+            <div class="section-head">
+                <h2 class="sec-title" id="hot-title">爆款好物</h2>
+                <a class="sec-more" href="#">今日热卖 TOP 8
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+            </div>
+
+            <div class="grid-products">
+                <!-- 商品卡 1 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--brand">爆款</span>
+                        <img src="images/product-1.jpg" alt="乐享 Pro 真无线蓝牙耳机">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">乐享 Pro 真无线蓝牙耳机</h3>
+                        <p class="p-desc">半入耳 · 超长续航 · 智能降噪</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>129</span>
+                            <span class="p-origin">¥199</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 商品卡 2 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--blue">新品</span>
+                        <img src="images/product-2.jpg" alt="小夜曲 智能语音音箱">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">小夜曲 智能语音音箱</h3>
+                        <p class="p-desc">语音点歌 · 红外遥控 · 立体声场</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>199</span>
+                            <span class="p-origin">¥299</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 商品卡 3 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--amber">热卖</span>
+                        <img src="images/product-3.jpg" alt="月球漫步 北欧创意台灯">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">月球漫步 北欧创意台灯</h3>
+                        <p class="p-desc">三档调光 · 氛围感拉满</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>89</span>
+                            <span class="p-origin">¥129</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 商品卡 4 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--violet">萌物</span>
+                        <img src="images/product-4.jpg" alt="微笑咖啡豆 陶瓷马克杯">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">微笑咖啡豆 陶瓷马克杯</h3>
+                        <p class="p-desc">高颜值萌物 · 带盖保温</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>49</span>
+                            <span class="p-origin">¥69</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 商品卡 5 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--brand">盲盒</span>
+                        <img src="images/product-5.jpg" alt="快乐星球 零食盲盒大礼包">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">快乐星球 零食盲盒大礼包</h3>
+                        <p class="p-desc">随机惊喜 · 一盒吃遍全网爆款</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>59.9</span>
+                            <span class="p-origin">¥99</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 商品卡 6 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--blue">健康</span>
+                        <img src="images/product-6.jpg" alt="每日坚果 混合装 500g">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">每日坚果 混合装 500g</h3>
+                        <p class="p-desc">7 种坚果果干 · 每日营养</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>79</span>
+                            <span class="p-origin">¥109</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 商品卡 7 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--amber">潮服</span>
+                        <img src="images/product-7.jpg" alt="云感 Oversize 连帽卫衣">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">云感 Oversize 连帽卫衣</h3>
+                        <p class="p-desc">重磅加绒 · 慵懒百搭</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>159</span>
+                            <span class="p-origin">¥239</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 商品卡 8 -->
+                <article class="product-card">
+                    <div class="thumb">
+                        <span class="tag tag--violet">百搭</span>
+                        <img src="images/product-8.jpg" alt="小白云 轻量帆布鞋">
+                    </div>
+                    <div class="info">
+                        <h3 class="p-name">小白云 轻量帆布鞋</h3>
+                        <p class="p-desc">透气百搭 · 软底不磨脚</p>
+                        <div class="price-row">
+                            <span class="p-price"><span class="unit">¥</span>139</span>
+                            <span class="p-origin">¥189</span>
+                        </div>
+                        <button class="add-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.4 12h11L21 7H6"/></svg>
+                            加入购物车
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. 页脚 ==================== -->
+    <footer class="footer" aria-label="页脚">
+        <div class="footer-inner">
+            <!-- 关于我们 -->
+            <div>
+                <div class="footer-brand">
+                    <span class="footer-logo">趣</span>
+                    <div>
+                        <p class="f-name">趣购</p>
+                        <p class="f-en">FUNBUY</p>
+                    </div>
+                </div>
+                <p class="footer-about">趣购（FunBuy）是一个主打年轻、潮流、有趣好物的电商平台。我们相信，每一个好物都值得被认真发现——愿你在趣购，每天都买到一点小确幸。</p>
+            </div>
+
+            <!-- 快速导航 -->
+            <div>
+                <h4>关于我们</h4>
+                <ul class="footer-links">
+                    <li><a href="#">了解趣购</a></li>
+                    <li><a href="#">加入我们</a></li>
+                    <li><a href="#">帮助中心</a></li>
+                    <li><a href="#">商家入驻</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                </ul>
+            </div>
+
+            <!-- 联系方式 -->
+            <div>
+                <h4>联系我们</h4>
+                <ul class="footer-contact">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                        <span>客服邮箱：hello@funbuy.shop</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+                        <span>客服热线：400-800-8888（9:00 - 21:00）</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                        <span>公司地址：北京市朝阳区潮玩大道 66 号</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                © 2026 趣购（FunBuy）保留所有权利 · 让每个好物都被发现
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
