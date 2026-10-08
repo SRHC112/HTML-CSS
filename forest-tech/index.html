@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="森林科技 Forest Tech——专注于人工智能、云计算、物联网与数据安全的企业级科技服务商。以科技重塑未来边界。">
+  <title>森林科技 Forest Tech · 以科技重塑未来边界</title>
+  <!-- 内联 SVG favicon（无外部资源，青蓝渐变 + 松树剪影） -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2385E8FF'/%3E%3Cstop offset='1' stop-color='%232E8BFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Cpath d='M32 15 45 34h-8l10 14H17l10-14h-8z' fill='%23060B1A'/%3E%3C/svg%3E">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* 背景层级 */
+      --bg-deep: #040818;          /* 页脚最深色 */
+      --bg-primary: #060b1a;       /* 页面主背景（深邃藏青黑） */
+      --bg-secondary: #0a1630;     /* 次级区块背景 */
+      --glass: rgba(15, 30, 63, 0.55); /* 毛玻璃面板 */
+      /* 强调色（淡蓝 / 青） */
+      --accent: #4dd0ff;
+      --accent-bright: #85e8ff;
+      --accent-deep: #2e8bff;
+      /* 文字 */
+      --text: #eaf4ff;
+      --text-dim: #9fb6d4;
+      /* 描边与发光 */
+      --line: rgba(77, 208, 255, 0.16);
+      /* 布局 */
+      --max-w: 1200px;             /* 内容区最大宽度，居中 */
+      --radius-lg: 20px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;     /* 锚点平滑滚动 */
+      scroll-padding-top: 84px;    /* 修正固定导航遮挡 */
+    }
+
+    body {
+      font-family: "SF Pro Display", "Helvetica Neue", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+    }
+
+    ::selection {
+      background: rgba(77, 208, 255, 0.3);
+      color: #ffffff;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section {
+      padding: 110px 0;
+    }
+
+    /* 区块标题：眉标 + 大标题 + 描述（瑞士风格，居中排版） */
+    .section-head {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-tag::before,
+    .section-tag::after {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent));
+    }
+
+    .section-tag::after {
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    .section-title {
+      margin-top: 18px;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      line-height: 1.3;
+    }
+
+    .section-desc {
+      margin: 16px auto 0;
+      max-width: 640px;
+      font-size: 16px;
+      color: var(--text-dim);
+    }
+
+    /* 3. 顶部导航栏（毛玻璃悬浮效果）*/
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(6, 11, 26, 0.55);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .navbar .container {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand img {
+      height: 38px;
+      width: auto;
+    }
+
+    .brand-name {
+      display: block;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      line-height: 1.2;
+    }
+
+    .brand-en {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-menu a {
+      position: relative;
+      padding: 8px 0;
+      font-size: 14.5px;
+      color: var(--text-dim);
+      transition: color var(--transition);
+    }
+
+    /* 悬停下划线滑动 + 发光文字 */
+    .nav-menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      box-shadow: 0 0 8px var(--accent);
+      transition: width var(--transition);
+    }
+
+    .nav-menu a:hover {
+      color: var(--text);
+      text-shadow: 0 0 12px rgba(77, 208, 255, 0.6);
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* 4. Hero 首屏横幅（全屏高度视觉焦点） */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      /* 背景图（images/hero-bg.jpg）+ 深色渐变叠加；图缺失时渐变自动兜底 */
+      background:
+        linear-gradient(180deg,
+          rgba(6, 11, 26, 0.45) 0%,
+          rgba(6, 11, 26, 0.72) 55%,
+          var(--bg-primary) 100%),
+        url("images/hero-bg.jpg") center / cover no-repeat;
+    }
+
+    /* 纯 CSS 网格装饰层（科技质感） */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(77, 208, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(77, 208, 255, 0.045) 1px, transparent 1px);
+      background-size: 60px 60px;
+      -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 40%, transparent 100%);
+    }
+
+    /* 纯 CSS 光晕装饰 */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    .orb-cyan {
+      width: 520px;
+      height: 520px;
+      top: -160px;
+      left: -120px;
+      background: radial-gradient(circle, rgba(77, 208, 255, 0.35), transparent 65%);
+    }
+
+    .orb-blue {
+      width: 460px;
+      height: 460px;
+      bottom: -140px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(46, 139, 255, 0.28), transparent 65%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 120px 40px 90px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+      background: rgba(77, 208, 255, 0.08);
+      border: 1px solid rgba(77, 208, 255, 0.3);
+      box-shadow: inset 0 0 20px rgba(77, 208, 255, 0.08), 0 0 20px rgba(77, 208, 255, 0.08);
+    }
+
+    .hero-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .hero-title {
+      margin-top: 32px;
+      font-size: clamp(48px, 6.4vw, 76px);
+      line-height: 1.16;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    /* 渐变文字强调 */
+    .hero-title .gradient {
+      background: linear-gradient(115deg, #ffffff 10%, #9fe9ff 45%, var(--accent) 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .hero-desc {
+      margin: 26px auto 0;
+      max-width: 660px;
+      font-size: 17px;
+      color: var(--text-dim);
+    }
+
+    /* 发光主按钮 */
+    .btn-primary {
+      display: inline-block;
+      margin-top: 48px;
+      padding: 16px 52px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #04131f;
+      background: linear-gradient(120deg, var(--accent), var(--accent-bright));
+      box-shadow: 0 0 26px rgba(77, 208, 255, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 46px rgba(77, 208, 255, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: rgba(159, 182, 212, 0.55);
+    }
+
+    /* 5. 关于我们：公司简介（左右两栏） */
+    .about-intro {
+      display: flex;
+      align-items: flex-start;
+      gap: 72px;
+      margin-bottom: 76px;
+    }
+
+    .about-intro .lead {
+      flex: 0 0 40%;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: 1px;
+    }
+
+    .about-intro .texts {
+      flex: 1;
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    .about-intro .texts p + p {
+      margin-top: 16px;
+    }
+
+    /*  使命 / 愿景 / 价值观（三列卡片） */
+    .mvv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      margin-bottom: 76px;
+    }
+
+    .mvv {
+      padding: 34px 30px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .mvv:hover {
+      transform: translateY(-6px);
+      border-color: rgba(77, 208, 255, 0.5);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 26px rgba(77, 208, 255, 0.14);
+    }
+
+    .mvv-label {
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: var(--accent);
+    }
+
+    .mvv h3 {
+      margin-top: 12px;
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
+
+    .mvv p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* 发展历程时间轴（grid 三列：时间 / 轴 / 内容，像素级对齐）*/
+    .timeline {
+      display: grid;
+      grid-template-columns: 110px 44px 1fr;
+      margin-bottom: 76px;
+    }
+
+    .tl-item {
+      display: contents; /* 子元素直接参与 grid 排列 */
+    }
+
+    .tl-year {
+      text-align: right;
+      padding: 2px 0 40px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    .tl-axis {
+      position: relative;
+      justify-self: center;
+    }
+
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      margin-top: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .tl-axis::after {
+      content: "";
+      position: absolute;
+      top: 26px;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background: linear-gradient(rgba(77, 208, 255, 0.5), rgba(77, 208, 255, 0.08));
+    }
+
+    .tl-item:last-child .tl-axis::after {
+      display: none; /* 最后一项不再延伸竖线 */
+    }
+
+    .tl-content {
+      padding-bottom: 40px;
+    }
+
+    .tl-content h4 {
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+
+    .tl-content p {
+      margin-top: 4px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* 企业实力数据带（对称大字号）*/
+    .stats-band {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 60px 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(77, 208, 255, 0.16);
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 0 70px rgba(77, 208, 255, 0.06);
+    }
+
+    .stat {
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .stat + .stat {
+      border-left: 1px solid rgba(77, 208, 255, 0.14);
+    }
+
+    .stat-num {
+      font-size: clamp(44px, 5vw, 62px);
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      background: linear-gradient(180deg, #ffffff 10%, var(--accent) 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .stat-label {
+      margin-top: 10px;
+      font-size: 15px;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+    }
+
+    /* 6. 核心业务区（2×2 详情卡片，悬停上浮发光） */
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .card {
+      position: relative;
+      padding: 46px 40px 40px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(160deg, rgba(18, 38, 76, 0.6), rgba(9, 18, 44, 0.72));
+      border: 1px solid var(--line);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    /* 悬停：轻微上浮 + 边框高亮 + 发光阴影 */
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(77, 208, 255, 0.55);
+      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.45), 0 0 34px rgba(77, 208, 255, 0.16);
+    }
+
+    /* 卡片顶部发光细线（悬停显现） */
+    .card-line {
+      position: absolute;
+      left: 40px;
+      right: 40px;
+      top: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, rgba(77, 208, 255, 0.6), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .card:hover .card-line {
+      opacity: 1;
+    }
+
+    /* 卡片头部：图标 + 标题 + 一句话定位 */
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* 业务图标容器：淡蓝色发光边框，图标由 images/icon-N.png 提供 */
+    .card-icon {
+      flex-shrink: 0;
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      background-color: rgba(77, 208, 255, 0.08);
+      border: 1px solid rgba(77, 208, 255, 0.28);
+      box-shadow: inset 0 0 18px rgba(77, 208, 255, 0.1);
+      background-size: 60% 60%;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: box-shadow var(--transition), border-color var(--transition);
+    }
+
+    /* 业务图标（请将对应图片放入 images/ 目录） */
+    .icon-1 { background-image: url("images/icon-1.png"); }
+    .icon-2 { background-image: url("images/icon-2.png"); }
+    .icon-3 { background-image: url("images/icon-3.png"); }
+    .icon-4 { background-image: url("images/icon-4.png"); }
+
+    .card:hover .card-icon {
+      border-color: rgba(77, 208, 255, 0.6);
+      box-shadow: inset 0 0 18px rgba(77, 208, 255, 0.14), 0 0 22px rgba(77, 208, 255, 0.3);
+    }
+
+    .card-title {
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .card-tagline {
+      margin-top: 3px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    /* 业务详情段落 */
+    .card-desc {
+      margin-top: 20px;
+      font-size: 14.5px;
+      color: var(--text-dim);
+    }
+
+    /* 能力点列表 */
+    .card-points {
+      margin-top: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .card-points li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .card-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+    }
+
+    /* 卡片底部成果数据（示例数据，请替换） */
+    .card-metrics {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(77, 208, 255, 0.12);
+      display: flex;
+      gap: 40px;
+    }
+
+    .metric .num {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-bright);
+      letter-spacing: 1px;
+    }
+
+    .metric .lbl {
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    /* 7. 解决方案区（三列方案条目）*/
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      margin-bottom: 56px;
+    }
+
+    .plan {
+      padding: 38px 32px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .plan:hover {
+      transform: translateY(-8px);
+      border-color: rgba(77, 208, 255, 0.5);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+    }
+
+    .plan-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--accent-bright);
+      border: 1px solid rgba(77, 208, 255, 0.4);
+      background: rgba(77, 208, 255, 0.07);
+    }
+
+    .plan h3 {
+      margin-top: 18px;
+      font-size: 19px;
+      letter-spacing: 1px;
+    }
+
+    .plan p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .plan-points {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(77, 208, 255, 0.12);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .plan-points span {
+      font-size: 12px;
+      color: var(--text-dim);
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(77, 208, 255, 0.06);
+      border: 1px solid rgba(77, 208, 255, 0.2);
+    }
+
+    /* ---- 解决方案 CTA 横幅 ---- */
+    .solutions-band {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      padding: 64px 72px;
+      border-radius: 28px;
+      border: 1px solid rgba(77, 208, 255, 0.22);
+      background:
+        radial-gradient(560px 280px at 12% 0%, rgba(77, 208, 255, 0.16), transparent 60%),
+        radial-gradient(480px 260px at 95% 100%, rgba(46, 139, 255, 0.14), transparent 60%),
+        linear-gradient(150deg, rgba(20, 42, 84, 0.8), rgba(8, 16, 38, 0.9));
+      box-shadow: 0 0 70px rgba(77, 208, 255, 0.08);
+    }
+
+    .solutions-title {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      line-height: 1.4;
+    }
+
+    .solutions-desc {
+      margin-top: 12px;
+      max-width: 600px;
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    /* 描边发光按钮 */
+    .btn-outline {
+      flex-shrink: 0;
+      display: inline-block;
+      padding: 14px 42px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--accent-bright);
+      border: 1px solid rgba(77, 208, 255, 0.5);
+      background: rgba(77, 208, 255, 0.06);
+      box-shadow: 0 0 18px rgba(77, 208, 255, 0.12), inset 0 0 18px rgba(77, 208, 255, 0.06);
+      transition: all var(--transition);
+    }
+
+    .btn-outline:hover {
+      color: #04131f;
+      background: linear-gradient(120deg, var(--accent), var(--accent-bright));
+      border-color: transparent;
+      box-shadow: 0 0 36px rgba(77, 208, 255, 0.55);
+      transform: translateY(-2px);
+    }
+
+    /* 8. 行业案例区（三列案例卡片）*/
+      .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .case {
+      padding: 40px 32px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .case:hover {
+      transform: translateY(-8px);
+      border-color: rgba(77, 208, 255, 0.5);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+    }
+
+    .case-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--accent-bright);
+      border: 1px solid rgba(77, 208, 255, 0.4);
+      background: rgba(77, 208, 255, 0.07);
+    }
+
+    .case h3 {
+      margin-top: 18px;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .case p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .case-metrics {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(77, 208, 255, 0.12);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .case-metrics .num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent-bright);
+    }
+
+    .case-metrics .lbl {
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* 9. 团队介绍区（四列成员卡片，CSS 首字母头像）*/
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 26px;
+    }
+
+    .member {
+      padding: 40px 26px 34px;
+      text-align: center;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .member:hover {
+      transform: translateY(-8px);
+      border-color: rgba(77, 208, 255, 0.5);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+    }
+
+    /* CSS 圆形渐变首字母头像（可替换为 images/team-N.png） */
+    .avatar {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 700;
+      color: #04131f;
+      border: 2px solid rgba(77, 208, 255, 0.5);
+      box-shadow: 0 0 24px rgba(77, 208, 255, 0.22), inset 0 0 14px rgba(255, 255, 255, 0.25);
+    }
+
+    .avatar-a { background: linear-gradient(135deg, #85e8ff, #2e8bff); }
+    .avatar-b { background: linear-gradient(135deg, #a5f3ff, #4dd0ff); }
+    .avatar-c { background: linear-gradient(135deg, #7ce7ff, #2e6bff); }
+    .avatar-d { background: linear-gradient(135deg, #b6f6ff, #35b8ff); }
+
+    .member-name {
+      margin-top: 22px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .member-role {
+      margin-top: 4px;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+
+    .member-bio {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* 10. 新闻动态区（四列新闻卡片）*/
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 26px;
+    }
+
+    .news-card {
+      padding: 30px 28px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .news-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(77, 208, 255, 0.5);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .news-date {
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .news-tag {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(77, 208, 255, 0.25);
+      background: rgba(77, 208, 255, 0.06);
+    }
+
+    .news-card h3 {
+      margin-top: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      line-height: 1.55;
+    }
+
+    .news-card p {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* 11. 页脚（公司全称 / 版权 / 备案号占位 / 联系方式）*/
+    .footer {
+      margin-top: 110px;
+      background: var(--bg-deep);
+      border-top: 1px solid rgba(77, 208, 255, 0.12);
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.6fr;
+      gap: 56px;
+      padding: 72px 0 56px;
+    }
+
+    .footer .brand img {
+      height: 32px;
+    }
+
+    .footer .brand-name {
+      font-size: 19px;
+    }
+
+    .footer-about {
+      margin-top: 20px;
+      max-width: 320px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .footer-title {
+      margin-bottom: 22px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    .footer-links li + li {
+      margin-top: 12px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--text-dim);
+      transition: color var(--transition), text-shadow var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(77, 208, 255, 0.5);
+    }
+
+    .footer-contact li {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .footer-contact li + li {
+      margin-top: 14px;
+    }
+
+    .footer-contact .label {
+      flex-shrink: 0;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 22px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      color: rgba(159, 182, 212, 0.7);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 3. 顶部导航栏 -->
+  <header class="navbar" id="home">
+    <div class="container">
+      <a class="brand" href="#home">
+        <!-- Logo：images/logo.png -->
+        <img src="images/logo.png" alt="森林科技 Logo">
+        <span>
+          <span class="brand-name">森林科技</span>
+          <span class="brand-en">Forest Tech</span>
+        </span>
+      </a>
+      <nav class="nav-menu">
+        <a href="#home">首页</a>
+        <a href="#about">关于我们</a>
+        <a href="#business">核心业务</a>
+        <a href="#solutions">解决方案</a>
+        <a href="#cases">行业案例</a>
+        <a href="#team">团队介绍</a>
+        <a href="#news">新闻动态</a>
+        <a href="#contact">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <!--  4. Hero 首屏横幅 -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-orb orb-cyan"></div>
+    <div class="hero-orb orb-blue"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Forest Tech · 未来科技</span>
+      <h1 class="hero-title">以科技重塑<span class="gradient">未来边界</span></h1>
+      <p class="hero-desc">森林科技深耕人工智能、云计算与物联网领域，以安全、高效、智能的数字基础设施，助力企业在智能化浪潮中保持领先。</p>
+      <a class="btn-primary" href="#business">探索更多</a>
+    </div>
+    <span class="hero-scroll">SCROLL</span>
+  </section>
+
+  <!--  5. 关于我们：简介 / 使命愿景 / 发展历程 / 数据 -->
+  <section class="section about" id="about">
+    <div class="container">
+      <!-- 5.1 公司简介（左右两栏） -->
+      <div class="about-intro">
+        <h2 class="lead">让复杂的技术，成为企业可靠的商业能力</h2>
+        <div class="texts">
+          <p>森林科技（Forest Tech）成立于 2016 年，是一家专注于人工智能、云计算、物联网与数据安全的企业级科技服务商。我们相信，前沿技术不应停留在实验室，而应转化为可落地、可度量、可长期演进的商业价值。</p>
+          <p>十余年来，我们服务了金融、制造、零售、能源等多个行业的企业客户，以自研算法与云原生架构为底座，帮助客户在数字化转型中构建差异化竞争力，让每一次业务决策都有数据与算法支撑。</p>
+        </div>
+      </div>
+
+      <!-- 5.2 使命 / 愿景 / 价值观 -->
+      <div class="mvv-grid">
+        <article class="mvv">
+          <span class="mvv-label">MISSION · 使命</span>
+          <h3>让智能触手可及</h3>
+          <p>用智能技术降低企业数字化门槛，让每一次业务决策都有数据与算法支撑。</p>
+        </article>
+        <article class="mvv">
+          <span class="mvv-label">VISION · 愿景</span>
+          <h3>值得信赖的智能底座</h3>
+          <p>成为最值得信赖的企业级智能基础设施服务商，与客户共同进化。</p>
+        </article>
+        <article class="mvv">
+          <span class="mvv-label">VALUES · 价值观</span>
+          <h3>长期主义 · 技术敬畏</h3>
+          <p>长期主义、技术敬畏、客户共进、结果导向，是我们行事的唯一准则。</p>
+        </article>
+      </div>
+
+      <!-- 5.3 发展历程时间轴（示例年份与事件，请替换为真实历程） -->
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year">2016</div>
+          <div class="tl-axis"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <h4>公司成立</h4>
+            <p>以云计算架构与行业软件研发起步，组建核心技术团队。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2018</div>
+          <div class="tl-axis"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <h4>发布 AI 智能算法平台</h4>
+            <p>自研深度学习框架上线，服务首批金融行业客户。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2020</div>
+          <div class="tl-axis"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <h4>物联网平台上线</h4>
+            <p>端云一体连接体系落地，服务企业客户突破 200 家。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2022</div>
+          <div class="tl-axis"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <h4>数据安全实验室成立</h4>
+            <p>发布全链路加密与智能风控方案，构建纵深防御体系。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2024</div>
+          <div class="tl-axis"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <h4>客户突破 500 家</h4>
+            <p>完成多行业标杆项目交付，并落地全球化服务节点布局。</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year">2026</div>
+          <div class="tl-axis"><div class="tl-dot"></div></div>
+          <div class="tl-content">
+            <h4>能力栈全面升级</h4>
+            <p>构建覆盖「算力 · 智能 · 连接 · 安全」的完整产品矩阵。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5.4 企业实力数据带（示例数据，请替换） -->
+      <div class="stats-band">
+        <div class="stat">
+          <div class="stat-num">10年+</div>
+          <div class="stat-label">研发经验</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">500+</div>
+          <div class="stat-label">企业客户</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">99.9%</div>
+          <div class="stat-label">系统稳定性</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">全天候服务</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 核心业务区（2×2 详情卡片）-->
+  <section class="section business" id="business">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Core Business</span>
+        <h2 class="section-title">核心业务</h2>
+        <p class="section-desc">四大技术板块协同发力，构建覆盖「算力 · 智能 · 连接 · 安全」的完整数字能力栈。</p>
+      </div>
+      <div class="business-grid">
+        <!-- 业务 1：AI 智能算法 -->
+        <article class="card">
+          <div class="card-line"></div>
+          <div class="card-head">
+            <div class="card-icon icon-1"></div>
+            <div>
+              <h3 class="card-title">AI 智能算法</h3>
+              <p class="card-tagline">让机器学会洞察</p>
+            </div>
+          </div>
+          <p class="card-desc">基于自研深度学习框架与大规模预训练模型，提供覆盖视觉、语言、预测分析的智能引擎，支持私有化部署与云上弹性调度，让 AI 能力无缝嵌入业务系统。</p>
+          <ul class="card-points">
+            <li>多模态模型推理平台</li>
+            <li>特征工程与 AutoML 自动化建模</li>
+            <li>实时在线学习与模型迭代</li>
+          </ul>
+          <div class="card-metrics">
+            <div class="metric"><div class="num">5×</div><div class="lbl">推理性能提升</div></div>
+            <div class="metric"><div class="num">10亿+</div><div class="lbl">日均接口调用</div></div>
+          </div>
+        </article>
+        <!-- 业务 2：云计算架构 -->
+        <article class="card">
+          <div class="card-line"></div>
+          <div class="card-head">
+            <div class="card-icon icon-2"></div>
+            <div>
+              <h3 class="card-title">云计算架构</h3>
+              <p class="card-tagline">弹性、安全、随业务增长</p>
+            </div>
+          </div>
+          <p class="card-desc">云原生基础设施与容器化微服务架构，结合多云管理与弹性伸缩策略，帮助企业降低 IT 成本、提升资源利用率，从容应对业务高峰与快速迭代。</p>
+          <ul class="card-points">
+            <li>Kubernetes 容器编排与微服务治理</li>
+            <li>多云与混合云统一管理</li>
+            <li>弹性伸缩与跨可用区容灾</li>
+          </ul>
+          <div class="card-metrics">
+            <div class="metric"><div class="num">+40%</div><div class="lbl">资源利用率提升</div></div>
+            <div class="metric"><div class="num">99.9%</div><div class="lbl">服务可用性 SLA</div></div>
+          </div>
+        </article>
+        <!-- 业务 3：物联网生态 -->
+        <article class="card">
+          <div class="card-line"></div>
+          <div class="card-head">
+            <div class="card-icon icon-3"></div>
+            <div>
+              <h3 class="card-title">物联网生态</h3>
+              <p class="card-tagline">连接万物，感知世界</p>
+            </div>
+          </div>
+          <p class="card-desc">端云一体的设备接入与管理平台，支持亿级设备连接、实时数据采集与边缘计算，为产业互联网构建可感知、可控制、可预测的数字化运行网络。</p>
+          <ul class="card-points">
+            <li>多协议海量设备接入</li>
+            <li>边缘计算与本地实时处理</li>
+            <li>数字孪生与可视化大屏</li>
+          </ul>
+          <div class="card-metrics">
+            <div class="metric"><div class="num">1000万+</div><div class="lbl">设备并发连接</div></div>
+            <div class="metric"><div class="num">&lt;50ms</div><div class="lbl">数据采集时延</div></div>
+          </div>
+        </article>
+        <!-- 业务 4：数据安全 -->
+        <article class="card">
+          <div class="card-line"></div>
+          <div class="card-head">
+            <div class="card-icon icon-4"></div>
+            <div>
+              <h3 class="card-title">数据安全</h3>
+              <p class="card-tagline">为数据资产筑起纵深防线</p>
+            </div>
+          </div>
+          <p class="card-desc">从传输、存储到使用的全链路加密体系，配合智能风控与合规审计能力，为企业的核心数据资产提供体系化防护，让业务创新没有后顾之忧。</p>
+          <ul class="card-points">
+            <li>全链路加密与密钥管理</li>
+            <li>智能风控与异常行为识别</li>
+            <li>合规审计与留痕追溯</li>
+          </ul>
+          <div class="card-metrics">
+            <div class="metric"><div class="num">7×24</div><div class="lbl">安全监控值守</div></div>
+            <div class="metric"><div class="num">0</div><div class="lbl">重大泄露事件</div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!--7. 解决方案区（方案条目 + CTA 横幅） -->
+  <section class="section solutions" id="solutions">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Solutions</span>
+        <h2 class="section-title">行业解决方案</h2>
+        <p class="section-desc">以模块化产品组合与定制化交付，快速响应多元业务场景，为每一个行业打造专属数字化方案。</p>
+      </div>
+      <div class="plans-grid">
+        <article class="plan">
+          <span class="plan-tag">智慧城市</span>
+          <h3>城市级感知与数据中枢</h3>
+          <p>城市级物联网感知与数据中台，汇聚多源数据，让城市运行可感知、可预测、可协同。</p>
+          <div class="plan-points">
+            <span>全域感知网络</span>
+            <span>城市数据中枢</span>
+            <span>应急协同调度</span>
+          </div>
+        </article>
+        <article class="plan">
+          <span class="plan-tag">智能制造</span>
+          <h3>AI 质检与工业云平台</h3>
+          <p>打通设计、生产、供应链全链路数据，以 AI 视觉质检与排程优化提升制造效率。</p>
+          <div class="plan-points">
+            <span>视觉质检</span>
+            <span>生产排程优化</span>
+            <span>设备预测性维护</span>
+          </div>
+        </article>
+        <article class="plan">
+          <span class="plan-tag">金融科技</span>
+          <h3>实时风控与合规底座</h3>
+          <p>实时风控与数据安全底座，支撑高频交易决策与合规审计，守住资金与数据两条生命线。</p>
+          <div class="plan-points">
+            <span>实时反欺诈</span>
+            <span>合规审计平台</span>
+            <span>隐私计算</span>
+          </div>
+        </article>
+      </div>
+      <!-- 解决方案 CTA 横幅 -->
+      <div class="solutions-band">
+        <div>
+          <h2 class="solutions-title">不确定哪套方案适合你？</h2>
+          <p class="solutions-desc">留下您的业务场景与需求，我们的方案顾问将在 1 个工作日内与您联系，输出定制化建议。</p>
+        </div>
+        <a class="btn-outline" href="#contact">联系我们</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 行业案例区（示例数据，请替换为真实案例）-->
+  <section class="section cases" id="cases">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Success Stories</span>
+        <h2 class="section-title">行业案例</h2>
+        <p class="section-desc">技术落地的价值，用客户成果说话。以下为示例案例，数据仅作演示。</p>
+      </div>
+      <div class="cases-grid">
+        <article class="case">
+          <span class="case-tag">智能制造</span>
+          <h3>汽车零部件集团 · 智能质检与排程优化</h3>
+          <p>AI 视觉质检与生产排程优化，助力多基地协同生产，缺陷拦截前移、交付周期显著缩短。</p>
+          <div class="case-metrics">
+            <div><div class="num">+35%</div><div class="lbl">生产效率</div></div>
+            <div><div class="num">-42%</div><div class="lbl">缺陷漏检率</div></div>
+            <div><div class="num">120+</div><div class="lbl">覆盖产线</div></div>
+            <div><div class="num">3</div><div class="lbl">生产基地</div></div>
+          </div>
+        </article>
+        <article class="case">
+          <span class="case-tag">智慧物流</span>
+          <h3>区域物流枢纽 · 设备追踪与分拣调度</h3>
+          <p>IoT 设备实时追踪与分拣调度优化，峰值订单稳定运行，人工作业强度大幅下降。</p>
+          <div class="case-metrics">
+            <div><div class="num">99.95%</div><div class="lbl">分拣准确率</div></div>
+            <div><div class="num">80万</div><div class="lbl">峰值日处理单量</div></div>
+            <div><div class="num">-30%</div><div class="lbl">人力成本</div></div>
+            <div><div class="num">&lt;1s</div><div class="lbl">设备定位时延</div></div>
+          </div>
+        </article>
+        <article class="case">
+          <span class="case-tag">智慧能源</span>
+          <h3>综合能源企业 · 能耗监测与预测维护</h3>
+          <p>能耗数据全量接入与预测性维护，降低非计划停机，让每一度电都用得明明白白。</p>
+          <div class="case-metrics">
+            <div><div class="num">100%</div><div class="lbl">能耗监测覆盖</div></div>
+            <div><div class="num">18%</div><div class="lbl">平均节电率</div></div>
+            <div><div class="num">15min</div><div class="lbl">故障提前预警</div></div>
+            <div><div class="num">30%</div><div class="lbl">非计划停机下降</div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. 团队介绍区（示例姓名与履历，请替换） -->
+  <section class="section team" id="team">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Our Team</span>
+        <h2 class="section-title">核心团队</h2>
+        <p class="section-desc">一支由资深工程师与行业专家组成的团队，用工程实力兑现每一次技术承诺。</p>
+      </div>
+      <div class="team-grid">
+        <article class="member">
+          <!-- 可替换为：<img src="images/team-1.png" alt="林深"> -->
+          <div class="avatar avatar-a">林</div>
+          <h3 class="member-name">林深</h3>
+          <p class="member-role">创始人 · CEO</p>
+          <p class="member-bio">资深云计算架构师，二十余年企业级软件研发与团队管理经验。</p>
+        </article>
+        <article class="member">
+          <div class="avatar avatar-b">苏</div>
+          <h3 class="member-name">苏晚晴</h3>
+          <p class="member-role">首席技术官 · CTO</p>
+          <p class="member-bio">前一线互联网公司技术负责人，专注大规模分布式系统设计。</p>
+        </article>
+        <article class="member">
+          <div class="avatar avatar-c">周</div>
+          <h3 class="member-name">周子航</h3>
+          <p class="member-role">首席科学家</p>
+          <p class="member-bio">人工智能方向博士，深耕多模态学习与决策智能前沿研究。</p>
+        </article>
+        <article class="member">
+          <div class="avatar avatar-d">顾</div>
+          <h3 class="member-name">顾言</h3>
+          <p class="member-role">副总裁 · 商业化</p>
+          <p class="member-bio">负责行业解决方案与生态合作，主导多个行业标杆项目落地。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!--10. 新闻动态区（示例新闻，请替换）-->
+  <section class="section news" id="news">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">News &amp; Events</span>
+        <h2 class="section-title">新闻动态</h2>
+        <p class="section-desc">了解森林科技的最新产品、合作与技术进展。</p>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-meta">
+            <span class="news-date">2026-09-28</span>
+            <span class="news-tag">产品动态</span>
+          </div>
+          <h3>森林科技发布新一代企业级 AI 推理引擎</h3>
+          <p>推理性能较上一代提升 5 倍，全面支持多模态模型私有化部署。</p>
+        </article>
+        <article class="news-card">
+          <div class="news-meta">
+            <span class="news-date">2026-08-15</span>
+            <span class="news-tag">企业合作</span>
+          </div>
+          <h3>与某头部制造集团达成战略合作</h3>
+          <p>双方将共建智能工厂数字化标杆，覆盖 3 大生产基地。</p>
+        </article>
+        <article class="news-card">
+          <div class="news-meta">
+            <span class="news-date">2026-07-02</span>
+            <span class="news-tag">技术进展</span>
+          </div>
+          <h3>云原生架构平台完成国产化环境适配</h3>
+          <p>完成主流国产芯片与操作系统的全栈兼容性验证。</p>
+        </article>
+        <article class="news-card">
+          <div class="news-meta">
+            <span class="news-date">2026-05-20</span>
+            <span class="news-tag">品牌荣誉</span>
+          </div>
+          <h3>入选年度企业级软件服务商创新榜单</h3>
+          <p>凭借在 AI 与云原生领域的持续投入获得行业认可。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. 页脚 -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-main">
+        <!-- 品牌信息 -->
+        <div class="footer-brand">
+          <a class="brand" href="#home">
+            <img src="images/logo.png" alt="森林科技 Logo">
+            <span>
+              <span class="brand-name">森林科技</span>
+              <span class="brand-en">Forest Tech</span>
+            </span>
+          </a>
+          <p class="footer-about">森林科技（Forest Tech）有限公司，专注于人工智能、云计算、物联网与数据安全的企业级科技服务商，致力于以科技重塑未来边界。</p>
+        </div>
+        <!-- 快速导航 -->
+        <div>
+          <h4 class="footer-title">快速导航</h4>
+          <ul class="footer-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#about">关于我们</a></li>
+            <li><a href="#business">核心业务</a></li>
+            <li><a href="#solutions">解决方案</a></li>
+            <li><a href="#cases">行业案例</a></li>
+            <li><a href="#team">团队介绍</a></li>
+            <li><a href="#news">新闻动态</a></li>
+            <li><a href="#contact">联系我们</a></li>
+          </ul>
+        </div>
+        <!-- 核心业务 -->
+        <div>
+          <h4 class="footer-title">核心业务</h4>
+          <ul class="footer-links">
+            <li><a href="#business">AI 智能算法</a></li>
+            <li><a href="#business">云计算架构</a></li>
+            <li><a href="#business">物联网生态</a></li>
+            <li><a href="#business">数据安全</a></li>
+          </ul>
+        </div>
+        <!-- 联系方式（电话 / 邮箱 / 地址均为示例占位） -->
+        <div>
+          <h4 class="footer-title">联系方式</h4>
+          <ul class="footer-contact">
+            <li><span class="label">电话</span><span>400-888-0000</span></li>
+            <li><span class="label">邮箱</span><span>contact@foresttech.cn</span></li>
+            <li><span class="label">地址</span><span>北京市海淀区中关村软件园 XX 号楼</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 版权与备案号占位符 -->
+      <div class="footer-bottom">
+        <span>© 2026 森林科技（Forest Tech）有限公司 版权所有</span>
+        <span>京ICP备XXXXXXXX号-1 · 京公网安备 XXXXXXXXXXXX 号</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
