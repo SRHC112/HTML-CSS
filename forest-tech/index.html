@@ -1,35 +1,3 @@
-<!--
-  ╔══════════════════════════════════════════════════════════════════════════╗
-  ║                                                                          ║
-  ║   森林科技 Forest Tech · 企业官方网站（静态首页 · 完整版）                ║
-  ║   技术栈：纯 HTML5 + 原生 CSS3（无外部框架 / 无 CDN / 无 JavaScript）     ║
-  ║   页面模块：导航栏 / Hero / 关于我们（简介·使命愿景·历程·数据）          ║
-  ║             / 核心技术优势 / 核心业务 / 解决方案 / 行业案例               ║
-  ║             / 合作伙伴与客户见证 / 团队介绍 / 新闻动态 / 页脚            ║
-  ║                                                                          ║
-  ║   ★★★ 重要提醒：以下图片均为「虚拟地址占位」★★★                       ║
-  ║   请在 index.html 同级目录的 images/ 文件夹中放入同名图片，              ║
-  ║   正式上线前请全部替换为你的本地照片 / 品牌素材：                        ║
-  ║     images/logo.png         网站 Logo（建议透明背景 PNG）                ║
-  ║     images/hero-bg.jpg     Hero 首屏背景照片（建议宽度 ≥ 1920px）       ║
-  ║     images/icon-1.png      「AI 智能算法」业务图标                      ║
-  ║     images/icon-2.png      「云计算架构」业务图标                       ║
-  ║     images/icon-3.png      「物联网生态」业务图标                       ║
-  ║     images/icon-4.png      「数据安全」业务图标                         ║
-  ║     images/adv-1.png        技术优势「自研底层架构」图标                 ║
-  ║     images/adv-2.png        技术优势「全链路安全防护」图标               ║
-  ║     images/adv-3.png        技术优势「边缘 + 云端协同」图标              ║
-  ║     images/adv-4.png        技术优势「一站式交付服务」图标               ║
-  ║     images/team-1~4.png     团队真实照片头像（4 人，圆形裁剪）           ║
-  ║     images/partner-1~5.png  合作伙伴品牌 Logo（5 个）                    ║
-  ║   图片缺失时页面自动显示 CSS 渐变占位效果，不影响浏览；                  ║
-  ║   每个占位处均已标注「★ 待替换」注释。                                  ║
-  ║                                                                          ║
-  ║   ★ 内容说明：本页为模板演示，公司简介、案例数据、团队与新闻均为         ║
-  ║     示例占位内容，请在正式上线前替换为真实信息。                         ║
-  ║                                                                          ║
-  ╚══════════════════════════════════════════════════════════════════════════╝
--->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -260,7 +228,7 @@
       width: 100%;
     }
 
-    /* 4. Hero 首屏横幅（白 → 浅蓝柔和渐变，无深色、无强发光） */
+    /* 4. Hero 首屏横幅：全屏高度 + 纯 CSS 自动轮播（每张显示 4 秒，悬停暂停） */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -269,20 +237,98 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
-      /* 背景：白色柔光遮罩层（最上） + 本地照片 images/hero-bg.jpg（中层） + 白→浅蓝渐变（兜底） */
-      background-image:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(246, 251, 255, 0.84) 100%),
-        url("images/hero-bg.jpg"),
-        linear-gradient(180deg, #ffffff 0%, #eef6ff 60%, #e3f0ff 100%);
-      background-size: cover, cover, cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background: linear-gradient(180deg, #ffffff 0%, #eef6ff 60%, #e3f0ff 100%);
     }
 
-    /* 细微网格装饰层（浅色、低透明度，仅作底纹） */
+    /* ---- 轮播容器：3 张幻灯片自动淡入淡出（12s 一轮，每张显示 4s） ---- */
+    .hero-slider {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0;
+      animation: heroFade 12s infinite;
+    }
+
+    .slide:nth-child(1) { animation-delay: 0s; }
+    .slide:nth-child(2) { animation-delay: 4s; }
+    .slide:nth-child(3) { animation-delay: 8s; }
+
+    /* 鼠标悬停暂停自动轮播 */
+    .hero:hover .slide {
+      animation-play-state: paused;
+    }
+
+    @keyframes heroFade {
+      0%   { opacity: 0; }
+      3%   { opacity: 1; }   /* 淡入 */
+      30%  { opacity: 1; }   /* 稳定显示 */
+      33%  { opacity: 0; }   /* 淡出 */
+      100% { opacity: 0; }
+    }
+
+    .slide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 半透明白色遮罩：保证文字清晰、维持浅色基调 */
+    .slide-shade {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    /* 通过 URL 锚点锁定：点击箭头 / 圆点后，该张幻灯片常显并停止自动播放 */
+    .slide:target {
+      animation: none;
+      opacity: 1;
+      z-index: 2;
+    }
+
+    /* ---- 左右切换箭头（跟随当前幻灯片一起显示） ---- */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(43, 124, 217, 0.25);
+      box-shadow: 0 4px 16px rgba(15, 40, 80, 0.12);
+      transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+    }
+
+    .arrow:hover {
+      background: linear-gradient(120deg, var(--primary), var(--primary-light));
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(43, 124, 217, 0.3);
+    }
+
+    .arrow-prev { left: 36px; }
+    .arrow-next { right: 36px; }
+
+    /* 细微网格装饰层（浅色、低透明度，仅作底纹，置于轮播图之上） */
     .hero-grid {
       position: absolute;
       inset: 0;
+      z-index: 3;
       background-image:
         linear-gradient(rgba(43, 124, 217, 0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(43, 124, 217, 0.06) 1px, transparent 1px);
@@ -297,6 +343,7 @@
       border-radius: 50%;
       filter: blur(90px);
       pointer-events: none;
+      z-index: 3;
     }
 
     .orb-cyan {
@@ -317,8 +364,22 @@
 
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 4;
       padding: 120px 40px 90px;
+    }
+
+    /* Hero 按钮组（发光主按钮 + 边框次要按钮） */
+    .hero-actions {
+      margin-top: 48px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline {
+      margin-top: 0;
     }
 
     .hero-badge {
@@ -372,7 +433,6 @@
     /* 主按钮：浅蓝渐变 + 柔和光晕 */
     .btn-primary {
       display: inline-block;
-      margin-top: 48px;
       padding: 16px 52px;
       border-radius: 999px;
       font-size: 16px;
@@ -394,22 +454,63 @@
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 2;
+      z-index: 4;
       font-size: 12px;
       letter-spacing: 4px;
       color: rgba(107, 114, 128, 0.6);
     }
 
-    /* 5. 关于我们：公司简介（左右两栏） */
-    .about-intro {
+    /* ---- 底部圆点指示器（默认高亮第 1 张；:target 时高亮对应圆点） ---- */
+    .hero-dots {
+      position: absolute;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+      z-index: 5;
       display: flex;
-      align-items: flex-start;
-      gap: 72px;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(43, 124, 217, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .hero-dots .dot:hover {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .hero-dots .dot:first-child {
+      background: var(--primary);
+    }
+
+    /* 点击圆点 / 箭头后，高亮对应位置并取消默认的第 1 个高亮 */
+    #slide2:target ~ .hero-dots .dot:first-child,
+    #slide3:target ~ .hero-dots .dot:first-child {
+      background: rgba(43, 124, 217, 0.25);
+    }
+
+    #slide2:target ~ .hero-dots .dot:nth-child(2),
+    #slide3:target ~ .hero-dots .dot:nth-child(3) {
+      background: var(--primary);
+    }
+
+    /* 5. 关于我们：公司简介（左文字 + 右公司实景图） */
+    .about-intro {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
       margin-bottom: 76px;
     }
 
-    .about-intro .lead {
-      flex: 0 0 40%;
+    .about-text .lead {
       font-size: 30px;
       font-weight: 600;
       line-height: 1.5;
@@ -418,13 +519,25 @@
     }
 
     .about-intro .texts {
-      flex: 1;
+      margin-top: 20px;
       font-size: 15px;
       color: var(--text-dim);
     }
 
     .about-intro .texts p + p {
       margin-top: 16px;
+    }
+
+    /* 公司实景图（★ 在线占位图：替换为本地图片 images/about.jpg） */
+    .about-media img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-hover);
+      background: #eef6ff;
     }
 
     /* 使命 / 愿景 / 价值观（三列白色卡片） */
@@ -595,7 +708,7 @@
       box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
     }
 
-    /* 优势图标容器：本地图片占位（images/adv-N.png），缺失时浅蓝渐变兜底 */
+    /* 优势图标容器：★ 虚拟占位图（在线），替换为本地图片 images/adv-N.png */
     .adv-icon {
       width: 56px;
       height: 56px;
@@ -614,21 +727,21 @@
       box-shadow: inset 0 0 14px rgba(96, 165, 250, 0.14), 0 0 16px rgba(96, 165, 250, 0.2);
     }
 
-    /* ★ 待替换：将本地图标图片放入 images/ 目录（adv-1.png ~ adv-4.png） */
+    /* 优势图标：★ 虚拟占位图（在线），替换为本地图片 images/adv-1.png ~ adv-4.png */
     .icon-adv-1 {
-      background-image: url("images/adv-1.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+      background-image: url("https://placehold.co/64x64/60a5fa/ffffff/png?text=Arch"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
     }
 
     .icon-adv-2 {
-      background-image: url("images/adv-2.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+      background-image: url("https://placehold.co/64x64/3b82f6/ffffff/png?text=Lock"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
     }
 
     .icon-adv-3 {
-      background-image: url("images/adv-3.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+      background-image: url("https://placehold.co/64x64/38bdf8/ffffff/png?text=Edge"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
     }
 
     .icon-adv-4 {
-      background-image: url("images/adv-4.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+      background-image: url("https://placehold.co/64x64/4a90e2/ffffff/png?text=Service"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
     }
 
     .adv h3 {
@@ -710,7 +823,7 @@
       gap: 20px;
     }
 
-    /* 业务图标容器：淡蓝浅底，图标由 images/icon-N.png 提供 */
+    /* 业务图标容器：淡蓝浅底，图标为 ★ 虚拟占位图（在线），替换为本地 images/icon-N.png */
     .card-icon {
       flex-shrink: 0;
       width: 68px;
@@ -725,11 +838,11 @@
       transition: box-shadow var(--transition), border-color var(--transition);
     }
 
-    /* 业务图标（请将对应图片放入 images/ 目录） */
-    .icon-1 { background-image: url("images/icon-1.png"); }
-    .icon-2 { background-image: url("images/icon-2.png"); }
-    .icon-3 { background-image: url("images/icon-3.png"); }
-    .icon-4 { background-image: url("images/icon-4.png"); }
+    /* 业务图标：★ 虚拟占位图（在线），替换为本地图片 images/icon-1.png ~ icon-4.png */
+    .icon-1 { background-image: url("https://placehold.co/64x64/2b7cd9/ffffff/png?text=AI"); }
+    .icon-2 { background-image: url("https://placehold.co/64x64/60a5fa/ffffff/png?text=Cloud"); }
+    .icon-3 { background-image: url("https://placehold.co/64x64/34d399/ffffff/png?text=IoT"); }
+    .icon-4 { background-image: url("https://placehold.co/64x64/3b82f6/ffffff/png?text=Safe"); }
 
     .card:hover .card-icon {
       border-color: rgba(43, 124, 217, 0.45);
@@ -932,6 +1045,18 @@
       gap: 26px;
     }
 
+    /* 案例实景图（★ 在线占位图：替换为本地图片 images/case-1.jpg ~ case-3.jpg） */
+    .case-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      margin-bottom: 20px;
+      background: #eef6ff;
+    }
+
     .case {
       padding: 40px 32px;
       border-radius: var(--radius);
@@ -1002,12 +1127,39 @@
       color: var(--text-dim);
     }
 
-    /* ---- 合作伙伴 Logo 墙（图片占位，可替换为品牌 Logo 图片） ---- */
-    .logo-wall {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 22px;
+    /* ---- 合作伙伴 Logo 无限滚动走马灯（纯 CSS animation，无缝循环） ---- */
+    .logo-marquee {
+      overflow: hidden;
       margin-bottom: 72px;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .logo-track {
+      display: flex;
+      width: max-content;
+      animation: logoMarquee 22s linear infinite;
+    }
+
+    /* 悬停暂停走马灯 */
+    .logo-track:hover {
+      animation-play-state: paused;
+    }
+
+    .logo-group {
+      display: flex;
+      gap: 22px;
+      padding-right: 22px; /* 充当两组之间的间距，保证 -50% 位移无缝衔接 */
+    }
+
+    @keyframes logoMarquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .logo-marquee .logo-slot {
+      flex-shrink: 0;
+      width: 210px;
     }
 
     .logo-slot {
@@ -1037,7 +1189,7 @@
       color: var(--text);
     }
 
-    /* ★ 待替换：合作伙伴品牌 Logo 图片放入 images/partner-N.png */
+    /* ★ 虚拟占位图：合作伙伴 Logo 已在线占位，替换为本地图片 images/partner-N.png */
     .logo-slot img {
       width: 52px;
       height: 52px;
@@ -1157,7 +1309,7 @@
       overflow: hidden;
     }
 
-    /* ★ 待替换：团队真实照片放入 images/team-N.png，圆形裁剪覆盖渐变底 */
+    /* ★ 虚拟占位图：团队照片已在线占位，替换为本地 images/team-N.png（圆形裁剪） */
     .avatar img {
       width: 100%;
       height: 100%;
@@ -1416,8 +1568,8 @@
   <header class="navbar" id="home">
     <div class="container">
       <a class="brand" href="#home">
-        <!-- Logo：images/logo.png -->
-        <img src="images/logo.png" alt="森林科技 Logo">
+        <!-- ★ 在线占位图：替换为本地 Logo images/logo.png -->
+        <img src="https://placehold.co/38x38/2b7cd9/ffffff/png?text=F" alt="森林科技 Logo">
         <span>
           <span class="brand-name">森林科技</span>
           <span class="brand-en">Forest Tech</span>
@@ -1438,8 +1590,37 @@
     </div>
   </header>
 
-  <!--  4. Hero 首屏横幅 -->
+  <!--  4. Hero 首屏横幅（全屏高度 · 3 张科技大图自动轮播 · 悬停暂停 · 箭头 + 圆点） -->
   <section class="hero">
+    <div class="hero-slider">
+      <!-- 幻灯片 1（★ 在线占位图：替换为本地科技大图 images/hero-slide-1.jpg） -->
+      <div class="slide" id="slide1">
+        <img class="slide-img" src="https://placehold.co/1920x1080/2b7cd9/ffffff/png?text=Forest+Tech+Slide+1" alt="科技主题大图 1">
+        <div class="slide-shade"></div>
+        <a class="arrow arrow-prev" href="#slide3" aria-label="上一张">&#10094;</a>
+        <a class="arrow arrow-next" href="#slide2" aria-label="下一张">&#10095;</a>
+      </div>
+      <!-- 幻灯片 2（★ 在线占位图：替换为本地科技大图 images/hero-slide-2.jpg） -->
+      <div class="slide" id="slide2">
+        <img class="slide-img" src="https://placehold.co/1920x1080/3b82f6/ffffff/png?text=Forest+Tech+Slide+2" alt="科技主题大图 2">
+        <div class="slide-shade"></div>
+        <a class="arrow arrow-prev" href="#slide1" aria-label="上一张">&#10094;</a>
+        <a class="arrow arrow-next" href="#slide3" aria-label="下一张">&#10095;</a>
+      </div>
+      <!-- 幻灯片 3（★ 在线占位图：替换为本地科技大图 images/hero-slide-3.jpg） -->
+      <div class="slide" id="slide3">
+        <img class="slide-img" src="https://placehold.co/1920x1080/60a5fa/ffffff/png?text=Forest+Tech+Slide+3" alt="科技主题大图 3">
+        <div class="slide-shade"></div>
+        <a class="arrow arrow-prev" href="#slide2" aria-label="上一张">&#10094;</a>
+        <a class="arrow arrow-next" href="#slide1" aria-label="下一张">&#10095;</a>
+      </div>
+      <!-- 底部圆点指示器（点击可跳转到对应幻灯片） -->
+      <div class="hero-dots">
+        <a class="dot" href="#slide1" aria-label="第 1 张"></a>
+        <a class="dot" href="#slide2" aria-label="第 2 张"></a>
+        <a class="dot" href="#slide3" aria-label="第 3 张"></a>
+      </div>
+    </div>
     <div class="hero-grid"></div>
     <div class="hero-orb orb-cyan"></div>
     <div class="hero-orb orb-blue"></div>
@@ -1447,7 +1628,10 @@
       <span class="hero-badge">Forest Tech · 未来科技</span>
       <h1 class="hero-title">以科技重塑<span class="gradient">未来边界</span></h1>
       <p class="hero-desc">森林科技深耕人工智能、云计算与物联网领域，以安全、高效、智能的数字基础设施，助力企业在智能化浪潮中保持领先。</p>
-      <a class="btn-primary" href="#business">探索更多</a>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#business">探索更多</a>
+        <a class="btn-outline" href="#contact">联系我们</a>
+      </div>
     </div>
     <span class="hero-scroll">SCROLL</span>
   </section>
@@ -1455,13 +1639,19 @@
   <!--  5. 关于我们：简介 / 使命愿景 / 发展历程 / 数据 -->
   <section class="section about" id="about">
     <div class="container">
-      <!-- 5.1 公司简介（左右两栏） -->
+      <!-- 5.1 公司简介（左文字介绍 + 右公司实景图） -->
       <div class="about-intro">
-        <h2 class="lead">让复杂的技术，成为企业可靠的商业能力</h2>
-        <div class="texts">
-          <p>森林科技（Forest Tech）成立于 2016 年，是一家专注于人工智能、云计算、物联网与数据安全的企业级科技服务商。我们相信，前沿技术不应停留在实验室，而应转化为可落地、可度量、可长期演进的商业价值。</p>
-          <p>十余年来，我们服务了金融、制造、零售、能源等多个行业的企业客户，以自研算法与云原生架构为底座，帮助客户在数字化转型中构建差异化竞争力，让每一次业务决策都有数据与算法支撑。</p>
+        <div class="about-text">
+          <h2 class="lead">让复杂的技术，成为企业可靠的商业能力</h2>
+          <div class="texts">
+            <p>森林科技（Forest Tech）成立于 2016 年，是一家专注于人工智能、云计算、物联网与数据安全的企业级科技服务商。我们相信，前沿技术不应停留在实验室，而应转化为可落地、可度量、可长期演进的商业价值。</p>
+            <p>十余年来，我们服务了金融、制造、零售、能源等多个行业的企业客户，以自研算法与云原生架构为底座，帮助客户在数字化转型中构建差异化竞争力，让每一次业务决策都有数据与算法支撑。</p>
+          </div>
         </div>
+        <!-- ★ 在线占位图：替换为本地公司实景照 images/about.jpg -->
+        <figure class="about-media">
+          <img src="https://placehold.co/560x420/eef6ff/2b7cd9/png?text=Company+Photo" alt="森林科技办公实景">
+        </figure>
       </div>
 
       <!-- 5.2 使命 / 愿景 / 价值观 -->
@@ -1568,7 +1758,7 @@
       <div class="adv-grid">
         <!-- 优势 1：自研底层架构 -->
         <article class="adv">
-          <!-- ★ 待替换：本地图标图片 images/adv-1.png -->
+          <!-- ★ 虚拟占位图：替换为本地图标 images/adv-1.png -->
           <div class="adv-icon icon-adv-1"></div>
           <h3>自研底层架构</h3>
           <p>自研云原生底座，兼容多厂商硬件，支持弹性扩容。支持私有化、混合云灵活部署，按需扩展业务能力。</p>
@@ -1578,7 +1768,7 @@
         </article>
         <!-- 优势 2：全链路安全防护 -->
         <article class="adv">
-          <!-- ★ 待替换：本地图标图片 images/adv-2.png -->
+          <!-- ★ 虚拟占位图：替换为本地图标 images/adv-2.png -->
           <div class="adv-icon icon-adv-2"></div>
           <h3>全链路安全防护</h3>
           <p>覆盖数据采集、传输、存储与访问全流程防护，内置数据脱敏、权限管控与操作审计，轻松满足合规标准。</p>
@@ -1588,7 +1778,7 @@
         </article>
         <!-- 优势 3：边缘 + 云端协同 -->
         <article class="adv">
-          <!-- ★ 待替换：本地图标图片 images/adv-3.png -->
+          <!-- ★ 虚拟占位图：替换为本地图标 images/adv-3.png -->
           <div class="adv-icon icon-adv-3"></div>
           <h3>边缘云端协同</h3>
           <p>边缘本地计算 + 云端统一管理，弱网环境下可持续采集设备数据，降低云端带宽压力，业务持续可用。</p>
@@ -1598,7 +1788,7 @@
         </article>
         <!-- 优势 4：一站式交付服务 -->
         <article class="adv">
-          <!-- ★ 待替换：本地图标图片 images/adv-4.png -->
+          <!-- ★ 虚拟占位图：替换为本地图标 images/adv-4.png -->
           <div class="adv-icon icon-adv-4"></div>
           <h3>一站式交付服务</h3>
           <p>全流程配套服务，从需求调研、方案设计、部署上线到后期运维，配备专属项目团队，持续迭代优化。</p>
@@ -1768,6 +1958,8 @@
       </div>
       <div class="cases-grid">
         <article class="case">
+          <!-- ★ 在线占位图：替换为本地案例实景图 images/case-1.jpg -->
+          <img class="case-img" src="https://placehold.co/640x360/60a5fa/ffffff/png?text=AI+Quality+Inspection" alt="汽车零部件智能质检实景">
           <span class="case-tag">智能制造</span>
           <h3>汽车零部件集团 · 智能质检与排程优化</h3>
           <p>AI 视觉质检与生产排程优化，助力多基地协同生产，缺陷拦截前移、交付周期显著缩短。</p>
@@ -1779,6 +1971,8 @@
           </div>
         </article>
         <article class="case">
+          <!-- ★ 在线占位图：替换为本地案例实景图 images/case-2.jpg -->
+          <img class="case-img" src="https://placehold.co/640x360/3b82f6/ffffff/png?text=Logistics+IoT+Tracking" alt="物流枢纽设备追踪实景">
           <span class="case-tag">智慧物流</span>
           <h3>区域物流枢纽 · 设备追踪与分拣调度</h3>
           <p>IoT 设备实时追踪与分拣调度优化，峰值订单稳定运行，人工作业强度大幅下降。</p>
@@ -1790,6 +1984,8 @@
           </div>
         </article>
         <article class="case">
+          <!-- ★ 在线占位图：替换为本地案例实景图 images/case-3.jpg -->
+          <img class="case-img" src="https://placehold.co/640x360/34d399/ffffff/png?text=Energy+Monitoring" alt="综合能源能耗监测实景">
           <span class="case-tag">智慧能源</span>
           <h3>综合能源企业 · 能耗监测与预测维护</h3>
           <p>能耗数据全量接入与预测性维护，降低非计划停机，让每一度电都用得明明白白。</p>
@@ -1813,14 +2009,25 @@
         <p class="section-desc">携手各行业伙伴，共同探索轻量化数字化转型。</p>
       </div>
       <p class="partner-intro">合作领域覆盖汽车制造、现代物流、综合能源、金融、智慧城市园区。合作伙伴包含车企集团、大型物流枢纽、能源集团、城投平台、商业银行等。</p>
-      <!-- 合作伙伴 Logo 墙（文字占位，可替换为品牌图标或 Logo 图片） -->
-      <div class="logo-wall">
-        <!-- ★ 待替换：合作伙伴品牌 Logo 图片 images/partner-1.png ~ partner-5.png -->
-        <div class="logo-slot"><img src="images/partner-1.png" alt="汽车制造品牌 Logo"><span class="industry">汽车制造</span></div>
-        <div class="logo-slot"><img src="images/partner-2.png" alt="现代物流品牌 Logo"><span class="industry">现代物流</span></div>
-        <div class="logo-slot"><img src="images/partner-3.png" alt="综合能源品牌 Logo"><span class="industry">综合能源</span></div>
-        <div class="logo-slot"><img src="images/partner-4.png" alt="金融机构品牌 Logo"><span class="industry">金融机构</span></div>
-        <div class="logo-slot"><img src="images/partner-5.png" alt="智慧城市品牌 Logo"><span class="industry">智慧城市</span></div>
+      <!-- 合作伙伴 Logo 无限滚动走马灯（★ 在线占位图：替换为本地品牌 Logo images/partner-1.png ~ partner-5.png） -->
+      <div class="logo-marquee">
+        <div class="logo-track">
+          <div class="logo-group">
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+1" alt="汽车制造品牌 Logo"><span class="industry">汽车制造</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+2" alt="现代物流品牌 Logo"><span class="industry">现代物流</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+3" alt="综合能源品牌 Logo"><span class="industry">综合能源</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+4" alt="金融机构品牌 Logo"><span class="industry">金融机构</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+5" alt="智慧城市品牌 Logo"><span class="industry">智慧城市</span></div>
+          </div>
+          <!-- 第二组（复制，保证无缝循环） -->
+          <div class="logo-group">
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+1" alt="汽车制造品牌 Logo"><span class="industry">汽车制造</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+2" alt="现代物流品牌 Logo"><span class="industry">现代物流</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+3" alt="综合能源品牌 Logo"><span class="industry">综合能源</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+4" alt="金融机构品牌 Logo"><span class="industry">金融机构</span></div>
+            <div class="logo-slot"><img src="https://placehold.co/120x60/ffffff/2b7cd9/png?text=Partner+5" alt="智慧城市品牌 Logo"><span class="industry">智慧城市</span></div>
+          </div>
+        </div>
       </div>
       <!-- 客户评价（3 列） -->
       <div class="quotes-grid">
@@ -1862,29 +2069,29 @@
       </div>
       <div class="team-grid">
         <article class="member">
-          <!-- ★ 待替换：团队真实照片 images/team-1.png -->
-          <div class="avatar avatar-a"><img src="images/team-1.png" alt="林深 头像"></div>
+          <!-- ★ 在线占位图：替换为团队照片 images/team-1.png -->
+          <div class="avatar avatar-a"><img src="https://placehold.co/160x160/60a5fa/ffffff/png?text=Team+1" alt="林深 头像"></div>
           <h3 class="member-name">林深</h3>
           <p class="member-role">创始人 · CEO</p>
           <p class="member-bio">资深云计算架构师，二十余年企业级软件研发与团队管理经验。</p>
         </article>
         <article class="member">
-          <!-- ★ 待替换：团队真实照片 images/team-2.png -->
-          <div class="avatar avatar-b"><img src="images/team-2.png" alt="苏晚晴 头像"></div>
+          <!-- ★ 在线占位图：替换为团队照片 images/team-2.png -->
+          <div class="avatar avatar-b"><img src="https://placehold.co/160x160/3b82f6/ffffff/png?text=Team+2" alt="苏晚晴 头像"></div>
           <h3 class="member-name">苏晚晴</h3>
           <p class="member-role">首席技术官 · CTO</p>
           <p class="member-bio">前一线互联网公司技术负责人，专注大规模分布式系统设计。</p>
         </article>
         <article class="member">
-          <!-- ★ 待替换：团队真实照片 images/team-3.png -->
-          <div class="avatar avatar-c"><img src="images/team-3.png" alt="周子航 头像"></div>
+          <!-- ★ 在线占位图：替换为团队照片 images/team-3.png -->
+          <div class="avatar avatar-c"><img src="https://placehold.co/160x160/38bdf8/ffffff/png?text=Team+3" alt="周子航 头像"></div>
           <h3 class="member-name">周子航</h3>
           <p class="member-role">首席科学家</p>
           <p class="member-bio">人工智能方向博士，深耕多模态学习与决策智能前沿研究。</p>
         </article>
         <article class="member">
-          <!-- ★ 待替换：团队真实照片 images/team-4.png -->
-          <div class="avatar avatar-d"><img src="images/team-4.png" alt="顾言 头像"></div>
+          <!-- ★ 在线占位图：替换为团队照片 images/team-4.png -->
+          <div class="avatar avatar-d"><img src="https://placehold.co/160x160/4a90e2/ffffff/png?text=Team+4" alt="顾言 头像"></div>
           <h3 class="member-name">顾言</h3>
           <p class="member-role">副总裁 · 商业化</p>
           <p class="member-bio">负责行业解决方案与生态合作，主导多个行业标杆项目落地。</p>
@@ -1982,7 +2189,8 @@
         <!-- 品牌信息 -->
         <div class="footer-brand">
           <a class="brand" href="#home">
-            <img src="images/logo.png" alt="森林科技 Logo">
+            <!-- ★ 在线占位图：替换为本地 Logo images/logo.png -->
+            <img src="https://placehold.co/38x38/2b7cd9/ffffff/png?text=F" alt="森林科技 Logo">
             <span>
               <span class="brand-name">森林科技</span>
               <span class="brand-en">Forest Tech</span>
