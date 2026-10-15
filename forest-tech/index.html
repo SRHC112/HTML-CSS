@@ -1,3 +1,35 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════════════════╗
+  ║                                                                          ║
+  ║   森林科技 Forest Tech · 企业官方网站（静态首页 · 完整版）                ║
+  ║   技术栈：纯 HTML5 + 原生 CSS3（无外部框架 / 无 CDN / 无 JavaScript）     ║
+  ║   页面模块：导航栏 / Hero / 关于我们（简介·使命愿景·历程·数据）          ║
+  ║             / 核心技术优势 / 核心业务 / 解决方案 / 行业案例               ║
+  ║             / 合作伙伴与客户见证 / 团队介绍 / 新闻动态 / 页脚            ║
+  ║                                                                          ║
+  ║   ★★★ 重要提醒：以下图片均为「虚拟地址占位」★★★                       ║
+  ║   请在 index.html 同级目录的 images/ 文件夹中放入同名图片，              ║
+  ║   正式上线前请全部替换为你的本地照片 / 品牌素材：                        ║
+  ║     images/logo.png         网站 Logo（建议透明背景 PNG）                ║
+  ║     images/hero-bg.jpg     Hero 首屏背景照片（建议宽度 ≥ 1920px）       ║
+  ║     images/icon-1.png      「AI 智能算法」业务图标                      ║
+  ║     images/icon-2.png      「云计算架构」业务图标                       ║
+  ║     images/icon-3.png      「物联网生态」业务图标                       ║
+  ║     images/icon-4.png      「数据安全」业务图标                         ║
+  ║     images/adv-1.png        技术优势「自研底层架构」图标                 ║
+  ║     images/adv-2.png        技术优势「全链路安全防护」图标               ║
+  ║     images/adv-3.png        技术优势「边缘 + 云端协同」图标              ║
+  ║     images/adv-4.png        技术优势「一站式交付服务」图标               ║
+  ║     images/team-1~4.png     团队真实照片头像（4 人，圆形裁剪）           ║
+  ║     images/partner-1~5.png  合作伙伴品牌 Logo（5 个）                    ║
+  ║   图片缺失时页面自动显示 CSS 渐变占位效果，不影响浏览；                  ║
+  ║   每个占位处均已标注「★ 待替换」注释。                                  ║
+  ║                                                                          ║
+  ║   ★ 内容说明：本页为模板演示，公司简介、案例数据、团队与新闻均为         ║
+  ║     示例占位内容，请在正式上线前替换为真实信息。                         ║
+  ║                                                                          ║
+  ╚══════════════════════════════════════════════════════════════════════════╝
+-->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -17,35 +49,39 @@
     }
 
     :root {
-      /* 背景层级 */
-      --bg-deep: #040818;          /* 页脚最深色 */
-      --bg-primary: #060b1a;       /* 页面主背景（深邃藏青黑） */
-      --bg-secondary: #0a1630;     /* 次级区块背景 */
-      --glass: rgba(15, 30, 63, 0.55); /* 毛玻璃面板 */
-      /* 强调色（淡蓝 / 青） */
-      --accent: #4dd0ff;
-      --accent-bright: #85e8ff;
-      --accent-deep: #2e8bff;
-      /* 文字 */
-      --text: #eaf4ff;
-      --text-dim: #9fb6d4;
-      /* 描边与发光 */
-      --line: rgba(77, 208, 255, 0.16);
+      /* 色彩体系（浅科技蓝，明亮干净，避免压抑） */
+      --primary: #2b7cd9;          /* 主色：浅科技蓝 */
+      --primary-light: #60a5fa;    /* 辅助色：浅蓝 */
+      --mint: #34d399;             /* 点缀色：淡青（森林 + 科技） */
+      --bg: #ffffff;               /* 页面基础底色：纯白 */
+      --bg-soft: #f8fafc;          /* 可选区块底色：极浅灰（交替） */
+      --text: #333344;             /* 正文：深灰（柔和护眼，不用纯黑） */
+      --text-dim: #6b7280;         /* 次要文字 */
+      --line: #e5e9f0;             /* 分割线：极浅灰 */
+      --line-blue: rgba(43, 124, 217, 0.16); /* 淡蓝线条（时间轴等） */
+      /* 阴影与光晕（轻量化，不刺眼） */
+      --shadow-card: 0 1px 2px rgba(15, 40, 80, 0.04), 0 6px 18px rgba(15, 40, 80, 0.05);
+      --shadow-hover: 0 12px 32px rgba(43, 124, 217, 0.10), 0 4px 12px rgba(15, 40, 80, 0.06);
+      --glow-soft: 0 0 22px rgba(96, 165, 250, 0.22);
       /* 布局 */
-      --max-w: 1200px;             /* 内容区最大宽度，居中 */
-      --radius-lg: 20px;
+      --max-w: 1200px;
+      --radius: 12px;              /* 卡片圆角 */
       --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html {
-      scroll-behavior: smooth;     /* 锚点平滑滚动 */
-      scroll-padding-top: 84px;    /* 修正固定导航遮挡 */
+      scroll-behavior: smooth;
+      scroll-padding-top: 84px;
     }
 
     body {
-      font-family: "SF Pro Display", "Helvetica Neue", "PingFang SC",
-        "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
-      background-color: var(--bg-primary);
+      font-family: "Inter", -apple-system, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg);
+      /* 淡淡的径向光晕底纹（低透明度，不抢内容） */
+      background-image:
+        radial-gradient(900px 620px at 88% -5%, rgba(96, 165, 250, 0.09), transparent 62%),
+        radial-gradient(800px 560px at 6% 42%, rgba(52, 211, 153, 0.05), transparent 60%);
       color: var(--text);
       font-size: 16px;
       line-height: 1.75;
@@ -67,12 +103,12 @@
     }
 
     ::selection {
-      background: rgba(77, 208, 255, 0.3);
-      color: #ffffff;
+      background: rgba(96, 165, 250, 0.28);
+      color: #1f2937;
     }
 
     :focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--primary);
       outline-offset: 3px;
       border-radius: 4px;
     }
@@ -84,7 +120,15 @@
     }
 
     .section {
-      padding: 110px 0;
+      padding: 120px 0;
+    }
+
+    /* 区块底色交替：部分板块使用极浅灰，其余保持纯白 */
+    .section.tech,
+    .section.solutions,
+    .section.partners,
+    .section.news {
+      background: var(--bg-soft);
     }
 
     /* 区块标题：眉标 + 大标题 + 描述（瑞士风格，居中排版） */
@@ -101,7 +145,7 @@
       font-weight: 600;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--primary);
     }
 
     .section-tag::before,
@@ -109,19 +153,20 @@
       content: "";
       width: 28px;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent));
+      background: linear-gradient(90deg, transparent, var(--primary-light));
     }
 
     .section-tag::after {
-      background: linear-gradient(90deg, var(--accent), transparent);
+      background: linear-gradient(90deg, var(--primary-light), transparent);
     }
 
     .section-title {
       margin-top: 18px;
       font-size: 38px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 2px;
       line-height: 1.3;
+      color: var(--text);
     }
 
     .section-desc {
@@ -131,16 +176,16 @@
       color: var(--text-dim);
     }
 
-    /* 3. 顶部导航栏（毛玻璃悬浮效果）*/
+    /* 3. 顶部导航栏（白底毛玻璃悬浮效果） */
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(6, 11, 26, 0.55);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      backdrop-filter: blur(18px) saturate(160%);
+      background: rgba(255, 255, 255, 0.75);
+      -webkit-backdrop-filter: blur(10px) saturate(160%);
+      backdrop-filter: blur(10px) saturate(160%);
       border-bottom: 1px solid var(--line);
     }
 
@@ -165,9 +210,10 @@
     .brand-name {
       display: block;
       font-size: 21px;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 2px;
       line-height: 1.2;
+      color: var(--text);
     }
 
     .brand-en {
@@ -176,25 +222,25 @@
       font-weight: 600;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--primary);
       line-height: 1.2;
     }
 
     .nav-menu {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 26px;
     }
 
     .nav-menu a {
       position: relative;
       padding: 8px 0;
-      font-size: 14.5px;
+      font-size: 14px;
       color: var(--text-dim);
       transition: color var(--transition);
     }
 
-    /* 悬停下划线滑动 + 发光文字 */
+    /* 悬停下划线平滑滑动 + 淡蓝文字 */
     .nav-menu a::after {
       content: "";
       position: absolute;
@@ -202,21 +248,19 @@
       bottom: 0;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
-      box-shadow: 0 0 8px var(--accent);
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
       transition: width var(--transition);
     }
 
     .nav-menu a:hover {
-      color: var(--text);
-      text-shadow: 0 0 12px rgba(77, 208, 255, 0.6);
+      color: var(--primary);
     }
 
     .nav-menu a:hover::after {
       width: 100%;
     }
 
-    /* 4. Hero 首屏横幅（全屏高度视觉焦点） */
+    /* 4. Hero 首屏横幅（白 → 浅蓝柔和渐变，无深色、无强发光） */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -225,32 +269,33 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
-      /* 背景图（images/hero-bg.jpg）+ 深色渐变叠加；图缺失时渐变自动兜底 */
-      background:
-        linear-gradient(180deg,
-          rgba(6, 11, 26, 0.45) 0%,
-          rgba(6, 11, 26, 0.72) 55%,
-          var(--bg-primary) 100%),
-        url("images/hero-bg.jpg") center / cover no-repeat;
+      /* 背景：白色柔光遮罩层（最上） + 本地照片 images/hero-bg.jpg（中层） + 白→浅蓝渐变（兜底） */
+      background-image:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(246, 251, 255, 0.84) 100%),
+        url("images/hero-bg.jpg"),
+        linear-gradient(180deg, #ffffff 0%, #eef6ff 60%, #e3f0ff 100%);
+      background-size: cover, cover, cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
-    /* 纯 CSS 网格装饰层（科技质感） */
+    /* 细微网格装饰层（浅色、低透明度，仅作底纹） */
     .hero-grid {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(77, 208, 255, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(77, 208, 255, 0.045) 1px, transparent 1px);
-      background-size: 60px 60px;
+        linear-gradient(rgba(43, 124, 217, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43, 124, 217, 0.06) 1px, transparent 1px);
+      background-size: 56px 56px;
       -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 40%, transparent 100%);
       mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 40%, transparent 100%);
     }
 
-    /* 纯 CSS 光晕装饰 */
+    /* 淡蓝色漫射光晕（柔和，不刺眼） */
     .hero-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
+      filter: blur(90px);
       pointer-events: none;
     }
 
@@ -259,7 +304,7 @@
       height: 520px;
       top: -160px;
       left: -120px;
-      background: radial-gradient(circle, rgba(77, 208, 255, 0.35), transparent 65%);
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.16), transparent 65%);
     }
 
     .orb-blue {
@@ -267,7 +312,7 @@
       height: 460px;
       bottom: -140px;
       right: -100px;
-      background: radial-gradient(circle, rgba(46, 139, 255, 0.28), transparent 65%);
+      background: radial-gradient(circle, rgba(43, 124, 217, 0.12), transparent 65%);
     }
 
     .hero-content {
@@ -285,10 +330,10 @@
       font-size: 13px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--accent-bright);
-      background: rgba(77, 208, 255, 0.08);
-      border: 1px solid rgba(77, 208, 255, 0.3);
-      box-shadow: inset 0 0 20px rgba(77, 208, 255, 0.08), 0 0 20px rgba(77, 208, 255, 0.08);
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(43, 124, 217, 0.22);
+      box-shadow: 0 2px 12px rgba(43, 124, 217, 0.08);
     }
 
     .hero-badge::before {
@@ -296,21 +341,21 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 8px var(--accent);
+      background: var(--mint);
     }
 
     .hero-title {
       margin-top: 32px;
       font-size: clamp(48px, 6.4vw, 76px);
       line-height: 1.16;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 3px;
+      color: var(--text);
     }
 
-    /* 渐变文字强调 */
+    /* 渐变文字强调（浅科技蓝，清爽不刺眼） */
     .hero-title .gradient {
-      background: linear-gradient(115deg, #ffffff 10%, #9fe9ff 45%, var(--accent) 90%);
+      background: linear-gradient(115deg, #2b7cd9 10%, #60a5fa 90%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -324,7 +369,7 @@
       color: var(--text-dim);
     }
 
-    /* 发光主按钮 */
+    /* 主按钮：浅蓝渐变 + 柔和光晕 */
     .btn-primary {
       display: inline-block;
       margin-top: 48px;
@@ -333,15 +378,15 @@
       font-size: 16px;
       font-weight: 600;
       letter-spacing: 2px;
-      color: #04131f;
-      background: linear-gradient(120deg, var(--accent), var(--accent-bright));
-      box-shadow: 0 0 26px rgba(77, 208, 255, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      background: linear-gradient(120deg, var(--primary), var(--primary-light));
+      box-shadow: 0 8px 24px rgba(43, 124, 217, 0.26);
       transition: transform var(--transition), box-shadow var(--transition);
     }
 
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 0 46px rgba(77, 208, 255, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 12px 30px rgba(43, 124, 217, 0.34);
     }
 
     .hero-scroll {
@@ -352,7 +397,7 @@
       z-index: 2;
       font-size: 12px;
       letter-spacing: 4px;
-      color: rgba(159, 182, 212, 0.55);
+      color: rgba(107, 114, 128, 0.6);
     }
 
     /* 5. 关于我们：公司简介（左右两栏） */
@@ -366,9 +411,10 @@
     .about-intro .lead {
       flex: 0 0 40%;
       font-size: 30px;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 1.5;
       letter-spacing: 1px;
+      color: var(--text);
     }
 
     .about-intro .texts {
@@ -381,7 +427,7 @@
       margin-top: 16px;
     }
 
-    /*  使命 / 愿景 / 价值观（三列卡片） */
+    /* 使命 / 愿景 / 价值观（三列白色卡片） */
     .mvv-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -391,28 +437,30 @@
 
     .mvv {
       padding: 34px 30px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
     .mvv:hover {
       transform: translateY(-6px);
-      border-color: rgba(77, 208, 255, 0.5);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 26px rgba(77, 208, 255, 0.14);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
     }
 
     .mvv-label {
       font-size: 12px;
       letter-spacing: 3px;
-      color: var(--accent);
+      color: var(--primary);
     }
 
     .mvv h3 {
       margin-top: 12px;
       font-size: 20px;
       letter-spacing: 1px;
+      color: var(--text);
     }
 
     .mvv p {
@@ -421,7 +469,7 @@
       color: var(--text-dim);
     }
 
-    /* 发展历程时间轴（grid 三列：时间 / 轴 / 内容，像素级对齐）*/
+    /* 发展历程时间轴（grid 三列：时间 / 轴 / 内容，像素级对齐） */
     .timeline {
       display: grid;
       grid-template-columns: 110px 44px 1fr;
@@ -429,7 +477,7 @@
     }
 
     .tl-item {
-      display: contents; /* 子元素直接参与 grid 排列 */
+      display: contents;
     }
 
     .tl-year {
@@ -437,7 +485,7 @@
       padding: 2px 0 40px;
       font-size: 15px;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--primary);
       letter-spacing: 1px;
     }
 
@@ -451,8 +499,8 @@
       height: 14px;
       margin-top: 4px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
+      background: var(--primary);
+      box-shadow: 0 0 10px rgba(43, 124, 217, 0.35);
     }
 
     .tl-axis::after {
@@ -463,11 +511,11 @@
       left: 50%;
       transform: translateX(-50%);
       width: 2px;
-      background: linear-gradient(rgba(77, 208, 255, 0.5), rgba(77, 208, 255, 0.08));
+      background: linear-gradient(rgba(43, 124, 217, 0.35), rgba(43, 124, 217, 0.05));
     }
 
     .tl-item:last-child .tl-axis::after {
-      display: none; /* 最后一项不再延伸竖线 */
+      display: none;
     }
 
     .tl-content {
@@ -477,6 +525,7 @@
     .tl-content h4 {
       font-size: 16px;
       letter-spacing: 1px;
+      color: var(--text);
     }
 
     .tl-content p {
@@ -485,17 +534,15 @@
       color: var(--text-dim);
     }
 
-    /* 企业实力数据带（对称大字号）*/
+    /* 企业实力数据带（对称大字号，浅色卡片） */
     .stats-band {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       padding: 60px 24px;
-      border-radius: 24px;
-      border: 1px solid rgba(77, 208, 255, 0.16);
-      background: var(--glass);
-      -webkit-backdrop-filter: blur(14px);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 0 70px rgba(77, 208, 255, 0.06);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
     }
 
     .stat {
@@ -504,15 +551,15 @@
     }
 
     .stat + .stat {
-      border-left: 1px solid rgba(77, 208, 255, 0.14);
+      border-left: 1px solid #eef1f6;
     }
 
     .stat-num {
       font-size: clamp(44px, 5vw, 62px);
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 1px;
       line-height: 1.2;
-      background: linear-gradient(180deg, #ffffff 10%, var(--accent) 90%);
+      background: linear-gradient(180deg, #2b7cd9 10%, #60a5fa 90%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -526,7 +573,97 @@
       color: var(--text-dim);
     }
 
-    /* 6. 核心业务区（2×2 详情卡片，悬停上浮发光） */
+    /* 5.5 核心技术优势区（4 张白色优势卡片，悬停上浮 + 淡蓝微光） */
+    .adv-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 26px;
+    }
+
+    .adv {
+      padding: 42px 30px 36px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .adv:hover {
+      transform: translateY(-6px);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
+    }
+
+    /* 优势图标容器：本地图片占位（images/adv-N.png），缺失时浅蓝渐变兜底 */
+    .adv-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background-color: transparent;
+      border: 1px solid rgba(43, 124, 217, 0.22);
+      box-shadow: inset 0 0 14px rgba(96, 165, 250, 0.10);
+      background-size: 60% 60%, 100% 100%;
+      background-position: center, 0 0;
+      background-repeat: no-repeat, no-repeat;
+      transition: box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .adv:hover .adv-icon {
+      border-color: rgba(43, 124, 217, 0.45);
+      box-shadow: inset 0 0 14px rgba(96, 165, 250, 0.14), 0 0 16px rgba(96, 165, 250, 0.2);
+    }
+
+    /* ★ 待替换：将本地图标图片放入 images/ 目录（adv-1.png ~ adv-4.png） */
+    .icon-adv-1 {
+      background-image: url("images/adv-1.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+    }
+
+    .icon-adv-2 {
+      background-image: url("images/adv-2.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+    }
+
+    .icon-adv-3 {
+      background-image: url("images/adv-3.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+    }
+
+    .icon-adv-4 {
+      background-image: url("images/adv-4.png"), linear-gradient(135deg, rgba(43, 124, 217, 0.10), rgba(96, 165, 250, 0.06));
+    }
+
+    .adv h3 {
+      margin-top: 22px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+
+    .adv p {
+      margin-top: 10px;
+      font-size: 13.5px;
+      color: var(--text-dim);
+    }
+
+    /* 亮点标签 */
+    .adv-tags {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .adv-tags span {
+      font-size: 11.5px;
+      letter-spacing: 1px;
+      color: var(--primary);
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(43, 124, 217, 0.06);
+      border: 1px solid rgba(43, 124, 217, 0.18);
+    }
+
+    /* 6. 核心业务区（2×2 白色详情卡片，悬停上浮 + 淡蓝微光） */
     .business-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -536,22 +673,20 @@
     .card {
       position: relative;
       padding: 46px 40px 40px;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(160deg, rgba(18, 38, 76, 0.6), rgba(9, 18, 44, 0.72));
+      border-radius: var(--radius);
+      background: var(--bg);
       border: 1px solid var(--line);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-card);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
-    /* 悬停：轻微上浮 + 边框高亮 + 发光阴影 */
     .card:hover {
-      transform: translateY(-10px);
-      border-color: rgba(77, 208, 255, 0.55);
-      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.45), 0 0 34px rgba(77, 208, 255, 0.16);
+      transform: translateY(-6px);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
     }
 
-    /* 卡片顶部发光细线（悬停显现） */
+    /* 卡片顶部装饰细线（淡蓝渐变，悬停显现） */
     .card-line {
       position: absolute;
       left: 40px;
@@ -559,7 +694,7 @@
       top: 0;
       height: 2px;
       border-radius: 2px;
-      background: linear-gradient(90deg, transparent, rgba(77, 208, 255, 0.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.75), transparent);
       opacity: 0;
       transition: opacity var(--transition);
     }
@@ -575,15 +710,15 @@
       gap: 20px;
     }
 
-    /* 业务图标容器：淡蓝色发光边框，图标由 images/icon-N.png 提供 */
+    /* 业务图标容器：淡蓝浅底，图标由 images/icon-N.png 提供 */
     .card-icon {
       flex-shrink: 0;
       width: 68px;
       height: 68px;
-      border-radius: 18px;
-      background-color: rgba(77, 208, 255, 0.08);
-      border: 1px solid rgba(77, 208, 255, 0.28);
-      box-shadow: inset 0 0 18px rgba(77, 208, 255, 0.1);
+      border-radius: 16px;
+      background-color: rgba(43, 124, 217, 0.06);
+      border: 1px solid rgba(43, 124, 217, 0.22);
+      box-shadow: inset 0 0 14px rgba(96, 165, 250, 0.08);
       background-size: 60% 60%;
       background-position: center;
       background-repeat: no-repeat;
@@ -597,21 +732,22 @@
     .icon-4 { background-image: url("images/icon-4.png"); }
 
     .card:hover .card-icon {
-      border-color: rgba(77, 208, 255, 0.6);
-      box-shadow: inset 0 0 18px rgba(77, 208, 255, 0.14), 0 0 22px rgba(77, 208, 255, 0.3);
+      border-color: rgba(43, 124, 217, 0.45);
+      box-shadow: inset 0 0 14px rgba(96, 165, 250, 0.12), 0 0 16px rgba(96, 165, 250, 0.22);
     }
 
     .card-title {
       font-size: 21px;
       font-weight: 600;
       letter-spacing: 1px;
+      color: var(--text);
     }
 
     .card-tagline {
       margin-top: 3px;
       font-size: 13px;
       letter-spacing: 1px;
-      color: var(--accent);
+      color: var(--primary);
     }
 
     /* 业务详情段落 */
@@ -643,23 +779,23 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 6px var(--accent);
+      background: var(--primary-light);
+      box-shadow: 0 0 6px rgba(96, 165, 250, 0.4);
     }
 
     /* 卡片底部成果数据（示例数据，请替换） */
     .card-metrics {
       margin-top: 24px;
       padding-top: 20px;
-      border-top: 1px solid rgba(77, 208, 255, 0.12);
+      border-top: 1px solid #eef1f6;
       display: flex;
       gap: 40px;
     }
 
     .metric .num {
       font-size: 24px;
-      font-weight: 700;
-      color: var(--accent-bright);
+      font-weight: 600;
+      color: var(--primary);
       letter-spacing: 1px;
     }
 
@@ -670,7 +806,7 @@
       letter-spacing: 1px;
     }
 
-    /* 7. 解决方案区（三列方案条目）*/
+    /* 7. 解决方案区（三列白色方案条目） */
     .plans-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -680,16 +816,17 @@
 
     .plan {
       padding: 38px 32px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
     .plan:hover {
-      transform: translateY(-8px);
-      border-color: rgba(77, 208, 255, 0.5);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+      transform: translateY(-6px);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
     }
 
     .plan-tag {
@@ -698,15 +835,16 @@
       border-radius: 999px;
       font-size: 12px;
       letter-spacing: 2px;
-      color: var(--accent-bright);
-      border: 1px solid rgba(77, 208, 255, 0.4);
-      background: rgba(77, 208, 255, 0.07);
+      color: var(--primary);
+      border: 1px solid rgba(43, 124, 217, 0.25);
+      background: rgba(43, 124, 217, 0.06);
     }
 
     .plan h3 {
       margin-top: 18px;
       font-size: 19px;
       letter-spacing: 1px;
+      color: var(--text);
     }
 
     .plan p {
@@ -718,7 +856,7 @@
     .plan-points {
       margin-top: 16px;
       padding-top: 14px;
-      border-top: 1px solid rgba(77, 208, 255, 0.12);
+      border-top: 1px solid #eef1f6;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -726,27 +864,27 @@
 
     .plan-points span {
       font-size: 12px;
-      color: var(--text-dim);
+      color: var(--primary);
       padding: 4px 12px;
       border-radius: 999px;
-      background: rgba(77, 208, 255, 0.06);
-      border: 1px solid rgba(77, 208, 255, 0.2);
+      background: rgba(43, 124, 217, 0.06);
+      border: 1px solid rgba(43, 124, 217, 0.18);
     }
 
-    /* ---- 解决方案 CTA 横幅 ---- */
+    /* ---- 解决方案 CTA 横幅（浅色渐变 + 淡青点缀） ---- */
     .solutions-band {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 48px;
       padding: 64px 72px;
-      border-radius: 28px;
-      border: 1px solid rgba(77, 208, 255, 0.22);
+      border-radius: 24px;
+      border: 1px solid var(--line);
       background:
-        radial-gradient(560px 280px at 12% 0%, rgba(77, 208, 255, 0.16), transparent 60%),
-        radial-gradient(480px 260px at 95% 100%, rgba(46, 139, 255, 0.14), transparent 60%),
-        linear-gradient(150deg, rgba(20, 42, 84, 0.8), rgba(8, 16, 38, 0.9));
-      box-shadow: 0 0 70px rgba(77, 208, 255, 0.08);
+        radial-gradient(560px 280px at 12% 0%, rgba(96, 165, 250, 0.12), transparent 60%),
+        radial-gradient(480px 260px at 95% 100%, rgba(52, 211, 153, 0.10), transparent 60%),
+        linear-gradient(150deg, #f8fafc, #eef6ff);
+      box-shadow: var(--shadow-card);
     }
 
     .solutions-title {
@@ -754,6 +892,7 @@
       font-weight: 600;
       letter-spacing: 1px;
       line-height: 1.4;
+      color: var(--text);
     }
 
     .solutions-desc {
@@ -763,7 +902,7 @@
       color: var(--text-dim);
     }
 
-    /* 描边发光按钮 */
+    /* 描边按钮（浅蓝描边，悬停填充） */
     .btn-outline {
       flex-shrink: 0;
       display: inline-block;
@@ -772,23 +911,22 @@
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 2px;
-      color: var(--accent-bright);
-      border: 1px solid rgba(77, 208, 255, 0.5);
-      background: rgba(77, 208, 255, 0.06);
-      box-shadow: 0 0 18px rgba(77, 208, 255, 0.12), inset 0 0 18px rgba(77, 208, 255, 0.06);
+      color: var(--primary);
+      border: 1px solid rgba(43, 124, 217, 0.45);
+      background: rgba(255, 255, 255, 0.7);
       transition: all var(--transition);
     }
 
     .btn-outline:hover {
-      color: #04131f;
-      background: linear-gradient(120deg, var(--accent), var(--accent-bright));
+      color: #ffffff;
+      background: linear-gradient(120deg, var(--primary), var(--primary-light));
       border-color: transparent;
-      box-shadow: 0 0 36px rgba(77, 208, 255, 0.55);
+      box-shadow: 0 8px 22px rgba(43, 124, 217, 0.25);
       transform: translateY(-2px);
     }
 
-    /* 8. 行业案例区（三列案例卡片）*/
-      .cases-grid {
+    /* 8. 行业案例区（三列白色案例卡片） */
+    .cases-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 26px;
@@ -796,16 +934,17 @@
 
     .case {
       padding: 40px 32px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
     .case:hover {
-      transform: translateY(-8px);
-      border-color: rgba(77, 208, 255, 0.5);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+      transform: translateY(-6px);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
     }
 
     .case-tag {
@@ -814,15 +953,16 @@
       border-radius: 999px;
       font-size: 12px;
       letter-spacing: 2px;
-      color: var(--accent-bright);
-      border: 1px solid rgba(77, 208, 255, 0.4);
-      background: rgba(77, 208, 255, 0.07);
+      color: var(--primary);
+      border: 1px solid rgba(43, 124, 217, 0.25);
+      background: rgba(43, 124, 217, 0.06);
     }
 
     .case h3 {
       margin-top: 18px;
       font-size: 18px;
       letter-spacing: 1px;
+      color: var(--text);
     }
 
     .case p {
@@ -834,7 +974,7 @@
     .case-metrics {
       margin-top: 22px;
       padding-top: 18px;
-      border-top: 1px solid rgba(77, 208, 255, 0.12);
+      border-top: 1px solid #eef1f6;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 14px;
@@ -842,8 +982,8 @@
 
     .case-metrics .num {
       font-size: 22px;
-      font-weight: 700;
-      color: var(--accent-bright);
+      font-weight: 600;
+      color: var(--primary);
     }
 
     .case-metrics .lbl {
@@ -852,7 +992,132 @@
       color: var(--text-dim);
     }
 
-    /* 9. 团队介绍区（四列成员卡片，CSS 首字母头像）*/
+    /* 8.5 合作伙伴与客户见证区 */
+    /* ---- 合作领域说明 ---- */
+    .partner-intro {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 48px;
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    /* ---- 合作伙伴 Logo 墙（图片占位，可替换为品牌 Logo 图片） ---- */
+    .logo-wall {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 22px;
+      margin-bottom: 72px;
+    }
+
+    .logo-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 110px;
+      border-radius: var(--radius);
+      border: 1px dashed rgba(43, 124, 217, 0.25);
+      background: var(--bg);
+      color: var(--text-dim);
+      transition: border-color var(--transition), background var(--transition), color var(--transition);
+    }
+
+    .logo-slot:hover {
+      border-color: rgba(43, 124, 217, 0.5);
+      background: rgba(43, 124, 217, 0.04);
+      color: var(--primary);
+    }
+
+    .logo-slot .industry {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text);
+    }
+
+    /* ★ 待替换：合作伙伴品牌 Logo 图片放入 images/partner-N.png */
+    .logo-slot img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      filter: grayscale(1);
+      opacity: 0.75;
+      transition: filter var(--transition), opacity var(--transition);
+    }
+
+    .logo-slot:hover img {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+
+    /* ---- 客户评价（3 列白色卡片） ---- */
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .quote {
+      padding: 44px 34px 36px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .quote:hover {
+      transform: translateY(-6px);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
+    }
+
+    .quote-mark {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 56px;
+      line-height: 1;
+      height: 34px;
+      color: var(--primary-light);
+      opacity: 0.55;
+    }
+
+    .quote-text {
+      margin-top: 8px;
+      font-size: 14.5px;
+      line-height: 1.9;
+      color: var(--text-dim);
+    }
+
+    .quote-footer {
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid #eef1f6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .quote-who {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+
+    .quote-tag {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--primary);
+      padding: 3px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(43, 124, 217, 0.25);
+      background: rgba(43, 124, 217, 0.06);
+    }
+
+    /* 9. 团队介绍区（四列成员卡片，照片占位） */
     .team-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -862,19 +1127,20 @@
     .member {
       padding: 40px 26px 34px;
       text-align: center;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
     .member:hover {
-      transform: translateY(-8px);
-      border-color: rgba(77, 208, 255, 0.5);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+      transform: translateY(-6px);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
     }
 
-    /* CSS 圆形渐变首字母头像（可替换为 images/team-N.png） */
+    /* 圆形渐变头像（可替换为 images/team-N.png 照片） */
     .avatar {
       width: 96px;
       height: 96px;
@@ -884,29 +1150,40 @@
       align-items: center;
       justify-content: center;
       font-size: 38px;
-      font-weight: 700;
-      color: #04131f;
-      border: 2px solid rgba(77, 208, 255, 0.5);
-      box-shadow: 0 0 24px rgba(77, 208, 255, 0.22), inset 0 0 14px rgba(255, 255, 255, 0.25);
+      font-weight: 600;
+      color: #ffffff;
+      border: 2px solid rgba(43, 124, 217, 0.3);
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.18);
+      overflow: hidden;
     }
 
-    .avatar-a { background: linear-gradient(135deg, #85e8ff, #2e8bff); }
-    .avatar-b { background: linear-gradient(135deg, #a5f3ff, #4dd0ff); }
-    .avatar-c { background: linear-gradient(135deg, #7ce7ff, #2e6bff); }
-    .avatar-d { background: linear-gradient(135deg, #b6f6ff, #35b8ff); }
+    /* ★ 待替换：团队真实照片放入 images/team-N.png，圆形裁剪覆盖渐变底 */
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .avatar-a { background: linear-gradient(135deg, #60a5fa, #2b7cd9); }
+    .avatar-b { background: linear-gradient(135deg, #93c5fd, #3b82f6); }
+    .avatar-c { background: linear-gradient(135deg, #38bdf8, #2b7cd9); }
+    .avatar-d { background: linear-gradient(135deg, #a5d8ff, #4a90e2); }
 
     .member-name {
       margin-top: 22px;
       font-size: 18px;
       font-weight: 600;
       letter-spacing: 1px;
+      color: var(--text);
     }
 
     .member-role {
       margin-top: 4px;
       font-size: 13px;
       letter-spacing: 2px;
-      color: var(--accent);
+      color: var(--primary);
     }
 
     .member-bio {
@@ -915,7 +1192,7 @@
       color: var(--text-dim);
     }
 
-    /* 10. 新闻动态区（四列新闻卡片）*/
+    /* 10. 新闻动态区（四列白色新闻卡片） */
     .news-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -924,16 +1201,17 @@
 
     .news-card {
       padding: 30px 28px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       border: 1px solid var(--line);
-      background: linear-gradient(160deg, rgba(18, 38, 76, 0.5), rgba(9, 18, 44, 0.65));
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
       transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
     .news-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(77, 208, 255, 0.5);
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42), 0 0 28px rgba(77, 208, 255, 0.14);
+      transform: translateY(-6px);
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 18px rgba(96, 165, 250, 0.14);
     }
 
     .news-meta {
@@ -946,7 +1224,7 @@
     .news-date {
       font-size: 12px;
       letter-spacing: 1px;
-      color: var(--accent);
+      color: var(--primary);
     }
 
     .news-tag {
@@ -955,8 +1233,8 @@
       color: var(--text-dim);
       padding: 2px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(77, 208, 255, 0.25);
-      background: rgba(77, 208, 255, 0.06);
+      border: 1px solid rgba(43, 124, 217, 0.2);
+      background: rgba(43, 124, 217, 0.05);
     }
 
     .news-card h3 {
@@ -965,6 +1243,7 @@
       font-weight: 600;
       letter-spacing: 0.5px;
       line-height: 1.55;
+      color: var(--text);
     }
 
     .news-card p {
@@ -973,11 +1252,87 @@
       color: var(--text-dim);
     }
 
-    /* 11. 页脚（公司全称 / 版权 / 备案号占位 / 联系方式）*/
+    /* 10.5 FAQ 常见问题区（原生 details 折叠面板，无 JS） */
+    .faq-list {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      margin-bottom: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--bg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .faq-item[open] {
+      border-color: rgba(43, 124, 217, 0.35);
+      box-shadow: var(--shadow-hover), 0 0 16px rgba(96, 165, 250, 0.12);
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      list-style: none;
+      color: var(--text);
+      transition: color var(--transition);
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary:hover {
+      color: var(--primary);
+    }
+
+    /* 展开/收起指示符（+ 旋转 45° 变为 ×） */
+    .faq-item summary::after {
+      content: "+";
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--primary);
+      border: 1px solid rgba(43, 124, 217, 0.3);
+      background: rgba(43, 124, 217, 0.05);
+      transition: transform var(--transition), color var(--transition), background var(--transition);
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+      color: #ffffff;
+      background: linear-gradient(120deg, var(--primary), var(--primary-light));
+    }
+
+    .faq-answer {
+      padding: 0 28px 24px;
+      font-size: 14.5px;
+      line-height: 1.9;
+      color: var(--text-dim);
+    }
+
+    /* 11. 页脚（浅色，公司全称 / 版权 / 备案号占位 / 联系方式） */
     .footer {
       margin-top: 110px;
-      background: var(--bg-deep);
-      border-top: 1px solid rgba(77, 208, 255, 0.12);
+      background: var(--bg-soft);
+      border-top: 1px solid var(--line);
     }
 
     .footer-main {
@@ -993,6 +1348,7 @@
 
     .footer .brand-name {
       font-size: 19px;
+      color: var(--text);
     }
 
     .footer-about {
@@ -1007,6 +1363,7 @@
       font-size: 15px;
       font-weight: 600;
       letter-spacing: 2px;
+      color: var(--text);
     }
 
     .footer-links li + li {
@@ -1016,12 +1373,11 @@
     .footer-links a {
       font-size: 14px;
       color: var(--text-dim);
-      transition: color var(--transition), text-shadow var(--transition);
+      transition: color var(--transition);
     }
 
     .footer-links a:hover {
-      color: var(--accent);
-      text-shadow: 0 0 10px rgba(77, 208, 255, 0.5);
+      color: var(--primary);
     }
 
     .footer-contact li {
@@ -1038,7 +1394,7 @@
 
     .footer-contact .label {
       flex-shrink: 0;
-      color: var(--accent);
+      color: var(--primary);
       letter-spacing: 1px;
     }
 
@@ -1048,9 +1404,9 @@
       flex-wrap: wrap;
       gap: 10px;
       padding: 22px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid var(--line);
       font-size: 13px;
-      color: rgba(159, 182, 212, 0.7);
+      color: #9ca3af;
     }
   </style>
 </head>
@@ -1070,9 +1426,11 @@
       <nav class="nav-menu">
         <a href="#home">首页</a>
         <a href="#about">关于我们</a>
+        <a href="#tech">技术优势</a>
         <a href="#business">核心业务</a>
         <a href="#solutions">解决方案</a>
         <a href="#cases">行业案例</a>
+        <a href="#partners">合作伙伴</a>
         <a href="#team">团队介绍</a>
         <a href="#news">新闻动态</a>
         <a href="#contact">联系我们</a>
@@ -1195,6 +1553,59 @@
           <div class="stat-num">24/7</div>
           <div class="stat-label">全天候服务</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5.5 核心技术优势区（放在关于我们之后、核心业务之前） -->
+  <section class="section tech" id="tech">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Tech Edge</span>
+        <h2 class="section-title">核心技术优势</h2>
+        <p class="section-desc">轻量自研底座，用稳定技术助力企业数字化升级。</p>
+      </div>
+      <div class="adv-grid">
+        <!-- 优势 1：自研底层架构 -->
+        <article class="adv">
+          <!-- ★ 待替换：本地图标图片 images/adv-1.png -->
+          <div class="adv-icon icon-adv-1"></div>
+          <h3>自研底层架构</h3>
+          <p>自研云原生底座，兼容多厂商硬件，支持弹性扩容。支持私有化、混合云灵活部署，按需扩展业务能力。</p>
+          <div class="adv-tags">
+            <span>云原生</span><span>弹性扩容</span><span>私有化部署</span>
+          </div>
+        </article>
+        <!-- 优势 2：全链路安全防护 -->
+        <article class="adv">
+          <!-- ★ 待替换：本地图标图片 images/adv-2.png -->
+          <div class="adv-icon icon-adv-2"></div>
+          <h3>全链路安全防护</h3>
+          <p>覆盖数据采集、传输、存储与访问全流程防护，内置数据脱敏、权限管控与操作审计，轻松满足合规标准。</p>
+          <div class="adv-tags">
+            <span>等保合规</span><span>数据脱敏</span><span>访问审计</span>
+          </div>
+        </article>
+        <!-- 优势 3：边缘 + 云端协同 -->
+        <article class="adv">
+          <!-- ★ 待替换：本地图标图片 images/adv-3.png -->
+          <div class="adv-icon icon-adv-3"></div>
+          <h3>边缘云端协同</h3>
+          <p>边缘本地计算 + 云端统一管理，弱网环境下可持续采集设备数据，降低云端带宽压力，业务持续可用。</p>
+          <div class="adv-tags">
+            <span>边缘计算</span><span>断网续传</span><span>统一管控</span>
+          </div>
+        </article>
+        <!-- 优势 4：一站式交付服务 -->
+        <article class="adv">
+          <!-- ★ 待替换：本地图标图片 images/adv-4.png -->
+          <div class="adv-icon icon-adv-4"></div>
+          <h3>一站式交付服务</h3>
+          <p>全流程配套服务，从需求调研、方案设计、部署上线到后期运维，配备专属项目团队，持续迭代优化。</p>
+          <div class="adv-tags">
+            <span>全周期交付</span><span>专属项目组</span><span>持续迭代</span>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -1393,6 +1804,54 @@
     </div>
   </section>
 
+  <!-- 8.5 合作伙伴与客户见证区（放在行业案例之后、团队介绍之前） -->
+  <section class="section partners" id="partners">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Partners &amp; Voices</span>
+        <h2 class="section-title">合作伙伴 &amp; 客户见证</h2>
+        <p class="section-desc">携手各行业伙伴，共同探索轻量化数字化转型。</p>
+      </div>
+      <p class="partner-intro">合作领域覆盖汽车制造、现代物流、综合能源、金融、智慧城市园区。合作伙伴包含车企集团、大型物流枢纽、能源集团、城投平台、商业银行等。</p>
+      <!-- 合作伙伴 Logo 墙（文字占位，可替换为品牌图标或 Logo 图片） -->
+      <div class="logo-wall">
+        <!-- ★ 待替换：合作伙伴品牌 Logo 图片 images/partner-1.png ~ partner-5.png -->
+        <div class="logo-slot"><img src="images/partner-1.png" alt="汽车制造品牌 Logo"><span class="industry">汽车制造</span></div>
+        <div class="logo-slot"><img src="images/partner-2.png" alt="现代物流品牌 Logo"><span class="industry">现代物流</span></div>
+        <div class="logo-slot"><img src="images/partner-3.png" alt="综合能源品牌 Logo"><span class="industry">综合能源</span></div>
+        <div class="logo-slot"><img src="images/partner-4.png" alt="金融机构品牌 Logo"><span class="industry">金融机构</span></div>
+        <div class="logo-slot"><img src="images/partner-5.png" alt="智慧城市品牌 Logo"><span class="industry">智慧城市</span></div>
+      </div>
+      <!-- 客户评价（3 列） -->
+      <div class="quotes-grid">
+        <article class="quote">
+          <div class="quote-mark">&ldquo;</div>
+          <p class="quote-text">AI 质检平台落地后，产线缺陷识别效率明显提升，减少人工重复劳动，系统运行稳定，技术团队响应及时。</p>
+          <div class="quote-footer">
+            <span class="quote-who">汽车零部件企业客户</span>
+            <span class="quote-tag">智能制造</span>
+          </div>
+        </article>
+        <article class="quote">
+          <div class="quote-mark">&ldquo;</div>
+          <p class="quote-text">物联网平台统一监管场内各类设备，故障提前预警，有效降低意外停机，平台上手简单，对接成本低。</p>
+          <div class="quote-footer">
+            <span class="quote-who">物流园区运营方</span>
+            <span class="quote-tag">智慧物流</span>
+          </div>
+        </article>
+        <article class="quote">
+          <div class="quote-mark">&ldquo;</div>
+          <p class="quote-text">能耗监测系统快速定位能耗异常点，接口兼容性强，数据安全管控方案贴合我们的合规需求。</p>
+          <div class="quote-footer">
+            <span class="quote-who">能源产业客户</span>
+            <span class="quote-tag">综合能源</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- 9. 团队介绍区（示例姓名与履历，请替换） -->
   <section class="section team" id="team">
     <div class="container">
@@ -1403,30 +1862,70 @@
       </div>
       <div class="team-grid">
         <article class="member">
-          <!-- 可替换为：<img src="images/team-1.png" alt="林深"> -->
-          <div class="avatar avatar-a">林</div>
+          <!-- ★ 待替换：团队真实照片 images/team-1.png -->
+          <div class="avatar avatar-a"><img src="images/team-1.png" alt="林深 头像"></div>
           <h3 class="member-name">林深</h3>
           <p class="member-role">创始人 · CEO</p>
           <p class="member-bio">资深云计算架构师，二十余年企业级软件研发与团队管理经验。</p>
         </article>
         <article class="member">
-          <div class="avatar avatar-b">苏</div>
+          <!-- ★ 待替换：团队真实照片 images/team-2.png -->
+          <div class="avatar avatar-b"><img src="images/team-2.png" alt="苏晚晴 头像"></div>
           <h3 class="member-name">苏晚晴</h3>
           <p class="member-role">首席技术官 · CTO</p>
           <p class="member-bio">前一线互联网公司技术负责人，专注大规模分布式系统设计。</p>
         </article>
         <article class="member">
-          <div class="avatar avatar-c">周</div>
+          <!-- ★ 待替换：团队真实照片 images/team-3.png -->
+          <div class="avatar avatar-c"><img src="images/team-3.png" alt="周子航 头像"></div>
           <h3 class="member-name">周子航</h3>
           <p class="member-role">首席科学家</p>
           <p class="member-bio">人工智能方向博士，深耕多模态学习与决策智能前沿研究。</p>
         </article>
         <article class="member">
-          <div class="avatar avatar-d">顾</div>
+          <!-- ★ 待替换：团队真实照片 images/team-4.png -->
+          <div class="avatar avatar-d"><img src="images/team-4.png" alt="顾言 头像"></div>
           <h3 class="member-name">顾言</h3>
           <p class="member-role">副总裁 · 商业化</p>
           <p class="member-bio">负责行业解决方案与生态合作，主导多个行业标杆项目落地。</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10.5 FAQ 常见咨询问题（折叠问答面板，放在新闻动态之前） -->
+  <section class="section faq" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">常见咨询问题</h2>
+        <p class="section-desc">关于部署、实施周期、运维与系统对接的高频疑问，在这里一次讲清。</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Q1：可以支持私有化部署方案吗？</summary>
+          <div class="faq-answer">
+            <p>支持。我们可提供公有云、混合云、本地私有化多种部署模式，适配政企、制造业的数据隔离需求。</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Q2：项目实施周期大概多久？</summary>
+          <div class="faq-answer">
+            <p>根据项目规模而定：标准化方案最快 1 个月落地；定制化项目会根据需求评估，提供详细实施排期。</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Q3：系统后期是否提供运维与版本升级服务？</summary>
+          <div class="faq-answer">
+            <p>交付后包含运维保障，支持系统版本迭代升级，提供 7×24 小时应急技术支持。</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Q4：是否可以对接企业现有旧系统？</summary>
+          <div class="faq-answer">
+            <p>支持。平台具备丰富 API 接口，能够和企业现有 ERP、MES、监控系统打通，实现数据互通。</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -1497,11 +1996,14 @@
           <ul class="footer-links">
             <li><a href="#home">首页</a></li>
             <li><a href="#about">关于我们</a></li>
+            <li><a href="#tech">技术优势</a></li>
             <li><a href="#business">核心业务</a></li>
             <li><a href="#solutions">解决方案</a></li>
             <li><a href="#cases">行业案例</a></li>
+            <li><a href="#partners">合作伙伴</a></li>
             <li><a href="#team">团队介绍</a></li>
             <li><a href="#news">新闻动态</a></li>
+            <li><a href="#faq">常见问题</a></li>
             <li><a href="#contact">联系我们</a></li>
           </ul>
         </div>
